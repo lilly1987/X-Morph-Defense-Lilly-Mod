@@ -563,7 +563,7 @@ EntityBlueprint
 			{
 				name "tower_turret"
 				target "air_unit_large|air_unit_medium|air_unit_small|air_unit|boss_air_primary|boss_air_secondary"
-				speed "360"
+				speed "720"
 				aim_volume "CylindricalAimVolume"
 				{
 					range_min "0"

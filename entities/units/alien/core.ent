@@ -157,7 +157,7 @@ EntityBlueprint
 			{
 				name "main_turret"
 				target "ground_unit"
-				speed "90"
+				speed "180"
 				aim_volume "CylindricalAimVolume"
 				{
 					range_min "0"

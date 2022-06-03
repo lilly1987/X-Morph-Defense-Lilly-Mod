@@ -505,7 +505,7 @@ EntityBlueprint
 			{
 				name "tower_turret"
 				target "artillery|ground_unit_large|ground_unit_medium|ground_unit_small|ground_unit|boss_ground_primary|boss_ground_secondary"
-				speed "120"
+				speed "240"
 				aim_volume "CylindricalAimVolume"
 				{
 					range_min "3"
@@ -518,7 +518,7 @@ EntityBlueprint
 				angle_min "40"
 				angle_max "50"
 				aiming_target_time "2"
-				gravity_factor "8"
+				gravity_factor "16"
 				yaw "turret_1"
 				pitch "barrel_1"
 			}

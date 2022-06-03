@@ -1,0 +1,169 @@
+TowerDef
+{
+	name                        "tower_ground_basic"
+	blueprint                   "units/alien/tower_ground_basic"
+	upgrades_to                 "tower_ground_artillery|tower_ground_flamer|tower_ground_laser|tower_air_basic|tower_air_laser|tower_air_missile|tower_ground_flamer_artillery|tower_ground_railgun|tower_ground_shockwave"
+	build_cost                  "300"
+	on_place_blueprint          "units/alien/tower_ground_basic_ghost"
+	max_range_blueprint         "units/misc/tower_max_range"
+	min_range_blueprint         "units/misc/tower_min_range"
+	placed_on_water             "1"
+	grid_size                   "1"
+}
+
+TowerDef
+{
+	name                        "tower_ground_artillery"
+	blueprint                   "units/alien/tower_ground_artillery"
+	upgrade_cost                "300"
+	build_cost                  "600"
+	on_place_blueprint          "units/alien/tower_ground_artillery_ghost"
+	max_range_blueprint         "units/misc/tower_max_range"
+	min_range_blueprint         "units/misc/tower_min_range"
+	placed_on_water             "1"
+	grid_size                   "1"
+}
+
+TowerDef
+{
+	name                        "tower_ground_flamer_artillery"
+	blueprint                   "units/alien/tower_ground_flamer_artillery"
+	upgrade_cost                "600"
+	build_cost                  "900"
+	on_place_blueprint          "units/alien/tower_ground_flamer_artillery_ghost"
+	max_range_blueprint         "units/misc/tower_max_range"
+	min_range_blueprint         "units/misc/tower_min_range"
+	placed_on_water             "1"
+	grid_size                   "1"
+}
+
+TowerDef
+{
+	name                        "tower_ground_flamer"
+	blueprint                   "units/alien/tower_ground_flamer"
+	upgrade_cost                "300"
+	build_cost                  "600"
+	on_place_blueprint          "units/alien/tower_ground_flamer_ghost"
+	max_range_blueprint         "units/misc/tower_max_range"
+	min_range_blueprint         "units/misc/tower_min_range"
+	placed_on_water             "1"
+	grid_size                   "1"
+}
+
+TowerDef
+{
+	name                        "tower_ground_shockwave"
+	blueprint                   "units/alien/tower_ground_shockwave"
+	upgrade_cost                "600"
+	build_cost                  "900"
+	on_place_blueprint          "units/alien/tower_ground_shockwave_ghost"
+	max_range_blueprint         "units/misc/tower_max_range"
+	min_range_blueprint         "units/misc/tower_min_range"
+	placed_on_water             "1"
+	grid_size                   "1"
+}
+
+TowerDef
+{
+	name                        "tower_ground_laser"
+	blueprint                   "units/alien/tower_ground_laser"
+	upgrade_cost                "300"
+	build_cost                  "600"
+	on_place_blueprint          "units/alien/tower_ground_laser_ghost"
+	max_range_blueprint         "units/misc/tower_max_range"
+	min_range_blueprint         "units/misc/tower_min_range"
+	placed_on_water             "1"
+	grid_size                   "1"
+}
+
+TowerDef
+{
+	name                        "tower_ground_railgun"
+	blueprint                   "units/alien/tower_ground_railgun"
+	upgrade_cost                "600"
+	build_cost                  "900"
+	on_place_blueprint          "units/alien/tower_ground_railgun_ghost"
+	max_range_blueprint         "units/misc/tower_max_range"
+	min_range_blueprint         "units/misc/tower_min_range"
+	placed_on_water             "1"
+	grid_size                   "1"
+}
+
+TowerDef
+{
+	name                        "tower_air_basic"
+	blueprint                   "units/alien/tower_air_basic"
+	//upgrades_to                 "tower_air_laser|tower_air_missile"
+	upgrade_cost                "300"
+	build_cost                  "600"
+	on_place_blueprint          "units/alien/tower_air_basic_ghost"
+	max_range_blueprint         "units/misc/tower_air_max_range"
+	min_range_blueprint         "units/misc/tower_air_min_range"
+	placed_on_water             "1"
+	grid_size                   "1"
+}
+
+TowerDef
+{
+	name                        "tower_air_missile"
+	blueprint                   "units/alien/tower_air_missile"
+	upgrade_cost                "600"
+	build_cost                  "900"
+	on_place_blueprint          "units/alien/tower_air_missile_ghost"
+	max_range_blueprint         "units/misc/tower_air_max_range"
+	min_range_blueprint         "units/misc/tower_air_min_range"
+	placed_on_water             "1"
+	grid_size                   "1"
+}
+
+TowerDef
+{
+	name                        "tower_air_laser"
+	blueprint                   "units/alien/tower_air_laser"
+	upgrade_cost                "600"
+	build_cost                  "900"
+	on_place_blueprint          "units/alien/tower_air_laser_ghost"
+	max_range_blueprint         "units/misc/tower_air_max_range"
+	min_range_blueprint         "units/misc/tower_air_min_range"
+	placed_on_water             "1"
+	grid_size                   "1"
+}
+
+TowerDef
+{
+	name                        "tower_air_missile_emp"
+	blueprint                   "units/alien/tower_air_missile_emp"
+	upgrade_cost                "300"
+	build_cost                  "900"
+	on_place_blueprint          "units/alien/tower_air_missile_emp_ghost"
+	max_range_blueprint         "units/misc/tower_air_max_range"
+	min_range_blueprint         "units/misc/tower_air_min_range"
+	placed_on_water             "1"
+	grid_size                   "1"
+}
+
+TowerDef
+{
+	name                        "tower_air_missile_swarm"
+	blueprint                   "units/alien/tower_air_missile_swarm"
+	upgrade_cost                "300"
+	build_cost                  "900"
+	on_place_blueprint          "units/alien/tower_air_missile_swarm_ghost"
+	max_range_blueprint         "units/misc/tower_air_max_range"
+	min_range_blueprint         "units/misc/tower_air_min_range"
+	placed_on_water             "1"
+	grid_size                   "1"
+}
+
+TowerDef
+{
+	name                        "tower_autoplay"
+	blueprint                   "units/alien/tower_autoplay"
+	upgrades_to                 "tower_ground_artillery|tower_ground_flamer|tower_ground_laser|tower_air_basic|tower_air_laser|tower_air_missile"
+	build_cost                  "300"
+	on_place_blueprint          "units/alien/tower_ground_basic_ghost"
+	max_range_blueprint         "units/misc/tower_max_range"
+	min_range_blueprint         "units/misc/tower_min_range"
+	placed_on_water             "1"
+	grid_size                   "1"
+}

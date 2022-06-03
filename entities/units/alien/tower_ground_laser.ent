@@ -504,7 +504,7 @@ EntityBlueprint
 			{
 				name "tower_turret"
 				target "artillery|medium_tank_advanced|ground_unit_large|ground_unit_medium|ground_unit_small|ground_unit|boss_ground_primary|boss_ground_secondary"
-				speed "120"
+				speed "240"
 				aim_volume "CylindricalAimVolume"
 				{
 					range_min "0"
