@@ -1,0 +1,57 @@
+EntityBlueprint
+{
+	name "projectiles/tower_ground_laser"
+
+	RenderableDescComp
+	{
+		mesh "meshes/projectiles/alien_laser.mesh"
+		material "projectiles/alien_laser_blue"
+	}
+	
+	SoundComp
+	{
+		sounds
+		{
+			Sound
+			{
+				name 		"weapon_fire/alien_laser_tower"
+				start_name 	"weapon_fire/alien_laser_tower_start"
+				end_name 	"weapon_fire/alien_laser_tower_end"
+			}
+		}
+	}
+
+	BeamComp
+	{
+		definition "BeamAmmoDef"
+		{
+			range "60"
+			max_hits "1"
+			on_enemy_hit_effect "player/blue/effects/weapon_hit/alien_laser_enemy_hit"
+			on_world_hit_effect "player/blue/effects/weapon_hit/alien_laser_world_hit"
+			collision_3d "shield_all|destructible|ground_unit|air_unit|core|boss|chunk|chunk_builder"
+			
+            damage_factor_max       "9.0"
+            damage_factor_increase  "5"
+            damage_factor_decrease  "20.0"
+            damage_max_beam_scale 	"5.0"
+			damage_max_beam_glow 	"6.5"
+			
+			sound_loop_name 			"weapon_fire/alien_laser_tower"
+			sound_loop_max_freq_ratio	"1.8"
+			
+			DamagePattern
+			{
+				Damage
+				{
+					value "10"
+					type "laser_tower"
+				}
+
+			}
+
+		}
+
+	}
+
+}

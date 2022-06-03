@@ -1,0 +1,31 @@
+EntityBlueprint
+{
+    name "projectiles/tower_ground_shockwave"
+    
+    AmmoComp
+    {
+        definition "FlakAmmoDef"
+        { 
+            on_enemy_hit_effect "effects/weapon_hit/alien_artillery_air_explosion"
+
+            dispersion		"0"
+            
+            DamagePattern
+            {
+                Damage
+                {
+                    value 			"12"
+					type 			"tower_shockwave"
+                }
+
+                Area
+                {
+                    radius 			"20"
+                    type 			"explosion"
+                    splash_effect   "effects/weapon_hit/splash_damage_hit_small"
+                }
+            }
+        }
+    }
+}
+

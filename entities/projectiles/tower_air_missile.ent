@@ -1,0 +1,313 @@
+EntityBlueprint
+{
+	name "projectiles/tower_air_missile"
+	BlueprintComp
+	{
+		blueprint "effects/projectiles_and_trails/tower_ground_missile_small_ribbon"
+	}
+
+	RenderableDescComp
+	{
+		mesh "meshes/projectiles/alien_rocket.mesh"
+
+		SubMeshes
+		{
+			SubMesh
+			{
+				id "0"
+				material "effects/alien_rocket_end_blue"
+			}
+			SubMesh
+			{
+				id "1"
+				material "effects/alien_rocket_blue"
+			}
+		}
+	}
+
+	MovementComp
+	{
+		speed "80"
+		angle_speed "180"
+	}
+
+	HealthComp
+	{
+		max_health "10"
+		health "10"
+	}
+
+	LifeTimeComp
+	{
+		time "1.5"
+	}
+
+	PhysicsDescComp
+	{
+		objects
+		{
+			PhysicsObjectDesc
+			{
+				group_id "rocket"
+				type "kinematic"
+				Shapes
+				{
+					PhysicsSphereShape
+					{
+						r "2"
+					}
+
+				}
+
+			}
+
+		}
+
+	}
+
+#ifdef win32
+	MarkerComp
+	{
+		icon_path "marker_projectile_missile_alien"
+	}
+#endif
+
+	AmmoComp
+	{
+		definition "MissileAmmoDef"
+		{
+			on_enemy_hit_effect "effects/weapon_hit/tower_missile_explosion"
+			on_world_hit_effect "effects/weapon_hit/tower_missile_explosion"
+			collision_3d "shield_all|world|world_blocker|shield|destructible|air_unit|ground_unit|rocket|boss"
+			DamagePattern
+			{
+				Damage
+				{
+					value "4"
+					type "missile_tower"
+				}
+
+				Area
+				{
+					radius "12"
+					type "explosion"
+					//splash_effect "effects/weapon_hit/splash_damage_hit"
+				}
+
+			}
+
+			AimPattern
+			{
+				target "air_unit"
+				range_min "0"
+				range_max "30"
+				horizon_fov "170"
+				vertical_fov "170"
+				tracking_type "continuously"
+				check_target_visibility "0"
+			}
+
+		}
+
+	}
+
+}
+
+EntityBlueprint
+{
+	name "projectiles/tower_air_missile_emp"
+	BlueprintComp
+	{
+		blueprint "effects/projectiles_and_trails/tower_ground_missile_small_ribbon"
+	}
+
+	RenderableDescComp
+	{
+		mesh "meshes/projectiles/alien_rocket.mesh"
+	}
+
+	MovementComp
+	{
+		speed "80"
+		angle_speed "180"
+	}
+
+	HealthComp
+	{
+		max_health "1"
+		health "1"
+	}
+
+	LifeTimeComp
+	{
+		time "5"
+	}
+
+	PhysicsDescComp
+	{
+		objects
+		{
+			PhysicsObjectDesc
+			{
+				group_id "rocket"
+				type "kinematic"
+				Shapes
+				{
+					PhysicsSphereShape
+					{
+						r "2"
+					}
+
+				}
+
+			}
+
+		}
+
+	}
+
+#ifdef win32
+	MarkerComp
+	{
+		icon_path "marker_projectile_missile_alien"
+	}
+#endif
+
+	AmmoComp
+	{
+		definition "MissileAmmoDef"
+		{
+			on_enemy_hit_effect "effects/weapon_hit/explosion_small_alien"
+			on_world_hit_effect "effects/weapon_hit/explosion_small_alien"
+			collision_3d "shield_all|world|world_blocker|shield|destructible|air_unit|water_unit|rocket|core|boss"
+			DamagePattern
+			{
+				Damage
+				{
+					value "1"
+				}
+
+				Slowdown
+				{
+					value "0.9"
+					duration "5"
+					effect "effects/weapon_hit/slowdown"
+				}
+
+				Area
+				{
+					radius "24"
+					type "explosion"
+					//splash_effect "effects/weapon_hit/splash_damage_hit"
+				}
+
+			}
+
+			AimPattern
+			{
+				target "air_unit"
+				range_min "0"
+				range_max "120"
+				horizon_fov "170"
+				vertical_fov "170"
+//				tracking_type "continuously"
+			}
+
+		}
+
+	}
+
+}
+
+EntityBlueprint
+{
+	name "projectiles/tower_air_missile_swarm"
+	BlueprintComp
+	{
+		blueprint "effects/projectiles_and_trails/tower_ground_missile_small_ribbon"
+	}
+
+	RenderableDescComp
+	{
+		mesh "meshes/projectiles/alien_rocket.mesh"
+	}
+
+	MovementComp
+	{
+		speed "80"
+		angle_speed "180"
+	}
+
+	HealthComp
+	{
+		max_health "1"
+		health "1"
+	}
+
+	LifeTimeComp
+	{
+		time "5"
+	}
+
+	PhysicsDescComp
+	{
+		objects
+		{
+			PhysicsObjectDesc
+			{
+				group_id "rocket"
+				type "kinematic"
+				Shapes
+				{
+					PhysicsSphereShape
+					{
+						r "2"
+					}
+
+				}
+
+			}
+
+		}
+
+	}
+
+#ifdef win32
+	MarkerComp
+	{
+		icon_path "marker_projectile_missile_alien"
+	}
+#endif
+
+	AmmoComp
+	{
+		definition "MissileAmmoDef"
+		{
+			on_enemy_hit_effect "effects/weapon_hit/explosion_small_alien"
+			on_world_hit_effect "effects/weapon_hit/explosion_small_alien"
+			collision_3d "shield_all|world|world_blocker|shield|destructible|air_unit|water_unit|rocket|core|boss"
+			DamagePattern
+			{
+				Damage
+				{
+					value "15"
+				}
+
+			}
+
+			AimPattern
+			{
+				target "air_unit"
+				range_min "0"
+				range_max "120"
+				horizon_fov "170"
+				vertical_fov "170"
+//				tracking_type "continuously"
+			}
+
+		}
+
+	}
+
+}
+

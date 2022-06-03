@@ -1,0 +1,1941 @@
+EntityBlueprint
+{
+	name "player/blue/units/alien/spaceship"
+	
+	LocalAabbComp
+	{
+		local_aabb
+		{
+			min
+			{
+				x "-3"
+				y "-3"
+				z "-3"
+			}
+			max
+			{
+				x "3"
+				y "3"
+				z "3"
+			}
+		}
+	}
+	TypeComp
+	{
+		type "air_unit|spaceship|fighter"
+	}
+	IdComp
+	{
+		group "spaceship"
+	}
+	RenderableDescComp
+	{
+		mesh "meshes/units/alien/spaceship_plasma.mesh"
+		material "units_alien/spaceship_blue"
+	}
+	LuaDescComp
+	{
+		script "lua/units/alien/spaceship.lua"
+	}
+	HealthComp
+	{
+		damage_highlight 		"1"
+		max_health 				"1500"
+		health 					"1500"
+		regeneration 			"10"
+		regeneration_cooldown 	"5"
+		is_manual 				"1"
+		regeneration_effect 	"effects/vehicles/healing_spaceship"
+		regeneration_end_effect "effects/vehicles/healing_spaceship_finished"
+		
+		DestructionLevels
+		{	
+			DestructionLevel
+			{
+				health 								"100"
+				destroyed_state_material 			"units_alien/spaceship_blue"
+			}				
+			DestructionLevel
+			{
+				health 								"75"
+				destroy_state_change_effect_group 	"75_transition"				
+				destroy_comp_event 					"75_destroy"
+				destroyed_state_material 			"units_alien/spaceship_blue_dest_75"
+				destroyed_state_effect_group 		"75_state"
+			}				
+			DestructionLevel
+			{
+				health 								"50"
+				destroy_state_change_effect_group 	"50_transition"				
+				destroy_comp_event 					"50_destroy"
+				destroyed_state_material 			"units_alien/spaceship_blue_dest_50"
+				destroyed_state_effect_group 		"50_state"				
+			}				
+			DestructionLevel
+			{
+				health 								"25"
+				destroy_state_change_effect_group 	"25_transition"				
+				destroy_comp_event 					"25_destroy"
+				destroyed_state_material 			"units_alien/spaceship_blue_dest_25"
+				destroyed_state_effect_group 		"25_state"				
+			}			
+		}
+	}
+	MovementComp
+	{
+		manual_move "1"
+	}
+	SkeletonDescComp
+	{
+		name "meshes/units/alien/spaceship_plasma"
+	}
+	PhysicsDescComp
+	{
+		objects
+		{
+			PhysicsObjectDesc
+			{
+				group_id "air_unit"
+				type "kinematic"
+				Shapes
+				{
+					PhysicsSphereShape
+					{
+						r "4"
+					} 
+					//PhysicsMeshShape
+					//{
+					//	mesh "meshes/units/alien/spaceship_c1.nxs"
+					//}
+				}
+			}
+		}
+	}
+	
+	DestroyComp
+	{
+		spawn_collectable_parts "1"
+		DestroyPatterns
+		{
+			Pair
+			{
+				key "75_destroy"
+				value
+				{
+					explosion_type 			"centered"
+					explosion_max_power 	"6000"
+					explosion_min_power 	"2000"
+					explosion_effect 		"player/blue/effects/weapon_hit/explosion_small_alien"
+					
+					part_material 			"units_alien/spaceship_blue_dest_75"									
+					part_prefix 			"meshes/units/alien/spaceship"
+					part_effect 			"player/blue/effects/projectiles_and_trails/fire_trail_alien_01_short"								
+				}				
+			}
+			Pair
+			{
+				key "50_destroy"
+				value
+				{
+					explosion_type 			"centered"
+					explosion_max_power 	"6000"
+					explosion_min_power 	"2000"
+					explosion_effect 		"player/blue/effects/weapon_hit/explosion_small_alien"
+					
+					part_material 			"units_alien/spaceship_blue_dest_50"									
+					part_prefix 			"meshes/units/alien/spaceship"
+					part_effect 			"player/blue/effects/projectiles_and_trails/fire_trail_alien_01_short"								
+				}				
+			}				
+			Pair
+			{
+				key "25_destroy"
+				value
+				{
+					explosion_type 			"centered"
+					explosion_max_power 	"6000"
+					explosion_min_power 	"2000"
+					explosion_effect 		"player/blue/effects/weapon_hit/explosion_medium_alien"
+					
+					part_material 			"units_alien/spaceship_blue_dest_25"									
+					part_prefix 			"meshes/units/alien/spaceship"
+					part_effect 			"player/blue/effects/projectiles_and_trails/fire_trail_alien_01_short"					
+				}				
+			}	
+		}	
+	}
+	WeaponComp
+	{
+		Weapons
+		{
+			Weapon
+			{
+				name "plasma"
+				muzzles_per_fire "1"
+				Muzzles
+				{
+					//Muzzle
+					//{
+					//	attachment "att_muzzle"
+					//}
+					Muzzle
+					{
+						attachment "att_right_muzzle"
+						recoil_bone  "plasma_right_recoil"
+						recoil_time   "0.1"
+						recoil_offset   "2.0"
+					}
+					Muzzle
+					{
+						attachment "att_left_muzzle"
+						recoil_bone  "plasma_left_recoil"
+						recoil_time   "0.1"
+						recoil_offset   "2.0"
+					}
+				}
+				ChargedMuzzles
+				{
+					Muzzle
+					{
+						attachment "att_muzzle_forward"
+					}
+					Muzzle
+					{
+						attachment "att_shield"
+					}
+				}
+				weapon_emissive_affector
+				{
+					emissive_time "0.05"
+					emissive_factor "20.0"
+					emissive_base_factor "1"
+					submesh_idx "1"
+				}
+				weapon_definition "PlayerPlasmaWeaponDef"
+				{
+					fire_rate "0.05"
+					name "weapon_player_1_plasma"
+					FirePattern
+					{
+						burst_column_spacing "0"
+						burst_rate "0"
+						burst_rows "1"
+						burst_column_angle "0"
+						burst_columns "1"
+					}
+					fire_effect "player/blue/effects/weapon_fire/alien_plasma"
+					ammo_blueprint "player/blue/projectiles/player_plasma"
+				}
+			}
+			Weapon
+			{
+				name "missiles"
+				muzzles_per_fire "1"
+				Muzzles
+				{
+					Muzzle
+					{
+						attachment "att_right_muzzle"
+					}
+					Muzzle
+					{
+						attachment "att_left_muzzle"
+					}
+					Muzzle
+					{
+						attachment "att_missile_far_left_muzzle"
+					}
+					Muzzle
+					{
+						attachment "att_missile_far_right_muzzle"
+					}
+					Muzzle
+					{
+						attachment "att_missile_far_right2_muzzle"
+					}
+					Muzzle
+					{
+						attachment "att_missile_far_left2_muzzle"
+					}
+				}
+				ChargedMuzzles
+				{
+				}
+				weapon_definition "PlayerMissileWeaponDef"
+				{
+					fire_rate "0.065"
+					name "weapon_player_1_missile"
+					FirePattern
+					{
+						burst_column_spacing "0"
+						burst_rate "0"
+						burst_rows "1"
+						burst_column_angle "0"
+						burst_columns "1"
+					}
+					fire_effect "player/blue/effects/weapon_fire/alien_missile"
+					ammo_blueprint "player/blue/projectiles/player_missile"
+				}
+			}
+			Weapon
+			{
+				name "laser"
+				Muzzles
+				{
+					Muzzle
+					{
+						attachment "att_muzzle"
+					}
+				}
+				ChargedMuzzles
+				{
+					Muzzle
+					{
+						attachment "att_muzzle"
+					}
+					Muzzle
+					{
+						attachment "att_muzzle"
+					}
+				}
+				weapon_emissive_affector
+				{
+					emissive_factor "5.0"
+					submesh_idx "0"
+				}
+				weapon_definition "PlayerLaserWeaponDef"
+				{
+					snap_width				"0.12"
+					desnap_width 			"0.13"
+					snap_angle 				"0"
+					desnap_angle			"0"
+					snap_angle_speed 		"15"
+					snap_distance_weight 	"1.0"
+					snap_angle_weight 		"0.0"
+
+					fire_rate "1"
+					fire_delay "0.01"
+					fire_duration "100"
+					name "weapon_player_1_beam"
+					FirePattern
+					{
+						burst_column_spacing "0"
+						burst_rate "0"
+						burst_rows "1"
+						burst_column_angle "0"
+						burst_columns "1"
+					}
+					fire_effect "player/blue/effects/weapon_fire/alien_laser"
+					ammo_blueprint "player/blue/projectiles/player_laser"
+					gravity_hole_blueprint "player/blue/projectiles/player_gravity"
+					marker_effect "player/blue/effects/target/player_bomb_marker"
+					laser_effect "player/blue/effects/target/player_bomb_laser"
+				}
+			}
+			Weapon
+			{
+				name "bombs"
+				muzzles_per_fire "1"
+				Muzzles
+				{
+					Muzzle
+					{
+						attachment "att_bombs_left"
+					}
+					Muzzle
+					{
+						attachment "att_bombs_right"
+					}
+					Muzzle
+					{
+						attachment "att_bombs_far_left"
+					}
+					Muzzle
+					{
+						attachment "att_bombs_far_right"
+					}
+				}
+				ChargedMuzzles
+				{
+					Muzzle
+					{
+						attachment "att_muzzle_forward"
+					}
+				}
+				weapon_definition "PlayerBombWeaponDef"
+				{
+					fire_rate "0.55"
+					name "weapon_player_1_ground_missiles"
+					FirePattern
+					{
+						burst_column_spacing "0"
+						burst_rate "0"
+						burst_rows "1"
+						burst_column_angle "0"
+						burst_columns "1"
+					}
+					fire_effect "player/blue/effects/weapon_fire/alien_bomb"
+					ammo_blueprint "player/blue/projectiles/player_bomb"
+					target_effect "player/blue/projectiles/player_bomb_marker"
+					bomb_effect "player/blue/projectiles/player_bomb_target"
+					marker_effect "player/blue/effects/target/player_bomb_marker"
+					laser_effect "player/blue/effects/target/player_bomb_laser"
+					laser_attachment "att_muzzle"
+					multiplayer_time_limit "5"
+				}
+			}
+		}
+	}
+	BehaviourComp
+	{
+		behaviour_defs 
+		{
+			GravityHoleArmorDef
+			{
+				radius                   "0.35"
+				priority_radius			 "0.01"
+				priority_angle			 "60"
+				cooldown_time            "0.1"
+				beam_blueprint           "player/blue/projectiles/alien_defense_lightning"	
+				hit_blueprint			 "player/blue/effects/weapon_hit/alien_defense_lightning"
+				fire_blueprint           "player/blue/effects/weapon_fire/alien_defense_lightning"
+				collision_type			 "screenspace"
+				type                     "projectile|missile"
+				lightning_time 		     "0.2"
+				lightning_glow 		     "30"
+
+				Muzzles
+				{
+					Muzzle
+					{
+						attachment "att_arm_left"
+					}
+					Muzzle
+					{
+						attachment "att_arm_far_right"
+					}
+					Muzzle
+					{
+						attachment "att_arm_low_left"
+					}
+					Muzzle
+					{
+						attachment "att_arm_right"
+					}
+					Muzzle
+					{
+						attachment "att_arm_far_left"
+					}
+					Muzzle
+					{
+						attachment "att_arm_low_right"
+					} 
+				}
+			}
+			
+			WindDef
+			{
+				type        "1"
+				power_max   "-6000"
+				radius      "30"
+			}
+
+            DefenseLightningArmorDef
+            {
+            	radius                   "0.3"
+				priority_radius			 "0.05"
+				priority_angle			 "90"
+				cooldown_time            "0.4"
+				beam_blueprint           "player/blue/projectiles/alien_defense_lightning"	
+				hit_blueprint			 "player/blue/effects/weapon_hit/alien_defense_lightning"
+				fire_blueprint           "player/blue/effects/weapon_fire/alien_defense_lightning"
+				collision_type			 "screenspace"
+				type                     "projectile|missile"
+				lightning_time 		     "0.35"
+				lightning_glow 		     "30"
+            }
+		}
+	}
+	SpaceshipDescComp
+	{
+		movement_collision_mask "world|world_blocker|chunk|boss|chunk_builder"
+		default_params
+		{
+			oscillation_freq "1"
+			oscillation_height "1"
+			acceleration "400"
+			deacceleration "200"
+			descent_height "0"
+			min_pitch "-20"
+			max_pitch "20"
+			min_roll "-20"
+			max_roll "20"
+			max_speed "60"
+			max_acc_speed "100"
+			acc_delay "1.5"
+			acc_time  "0.5"			
+			rotation_delay "0.7"
+			angular_speed "20"
+			ground_parallel_aim "0"
+			influance_area_money_mul "2"
+			angular_shoot_speed "20"
+			speed_distance_modifier "6"
+			
+			collection_start_effect "player/blue/units/alien/spaceship_collector_start"
+			collection_effect "player/blue/units/alien/spaceship_collector"
+			collection_end_effect "player/blue/units/alien/spaceship_collector_end"
+			fly_effect		  "player/blue/effects/projectiles_and_trails/debris_trail"
+			collector_radius  "200"
+			collector_power	  "2000"
+			collector_height  "50"
+			collected_effect  "destructibles/debris_disintegrate"
+			
+			speed_effect	  "player/blue/effects/projectiles_and_trails/alien_wing_trail"
+			speed_up_effect   "player/blue/effects/projectiles_and_trails/alien_wing_trail_speed_up"
+		}
+		per_weapon_params
+		{
+			Pair
+			{
+				value
+				{
+					max_speed "60"
+					max_acc_speed "80"
+					acc_delay "1.5"
+					acc_time  "0.5"
+					angular_speed "7"
+					angular_shoot_speed "15"
+					acceleration "350"
+					deacceleration "100"
+					rotation_delay "0.7"
+					speed_distance_modifier "6"
+					
+					oscillation_freq "3"
+					oscillation_height "0.6"
+					descent_height "0"
+					min_pitch "-19"
+					max_pitch "19"
+					min_roll "-17"
+					max_roll "17"
+				}
+				key "plasma"
+			}
+			Pair
+			{
+				value
+				{
+					max_speed "30"
+					max_acc_speed "60"
+					acc_delay "1.5"
+					acc_time  "0.5"
+					angular_speed "7"
+					angular_shoot_speed "15"
+					acceleration "350"
+					deacceleration "100"
+					rotation_delay "0.7"
+					speed_distance_modifier "6"
+					
+					oscillation_freq "3"
+					oscillation_height "0.3"
+					descent_height "0"
+					min_pitch "-19"
+					max_pitch "19"
+					min_roll "-17"
+					max_roll "17"
+				}
+				key "charged_plasma"
+			}
+			Pair
+			{
+				value
+				{
+					max_speed "60"
+					max_acc_speed "80"
+					acc_delay "1.5"
+					acc_time  "0.5"
+					angular_speed "7"
+					angular_shoot_speed "15"
+					acceleration "350"
+					deacceleration "100"
+					rotation_delay "0.7"
+					speed_distance_modifier "6"
+					
+					oscillation_freq "3"
+					oscillation_height "0.6"
+					descent_height "0"
+					min_pitch "-19"
+					max_pitch "19"
+					min_roll "-17"
+					max_roll "17"
+				}
+				key "missiles"
+			}
+			Pair
+			{
+				value
+				{
+					max_speed "45"
+					max_acc_speed "70"
+					acc_delay "1.5"
+					acc_time  "0.5"
+					angular_speed "7"
+					angular_shoot_speed "15"
+					acceleration "350"
+					deacceleration "100"
+					rotation_delay "0.7"
+					speed_distance_modifier "6"
+					
+					oscillation_freq "3"
+					oscillation_height "0.6"
+					descent_height "0"
+					min_pitch "-19"
+					max_pitch "19"
+					min_roll "-17"
+					max_roll "17"
+				}
+				key "charged_missiles"
+			}
+			Pair
+			{
+				value
+				{
+					max_speed "60"
+					max_acc_speed "80"
+					acc_delay "1.5"
+					acc_time  "0.5"
+					angular_speed "7"
+					angular_shoot_speed "15"
+					acceleration "350"
+					deacceleration "100"
+					rotation_delay "0.7"
+					speed_distance_modifier "6"
+					
+					oscillation_freq "3"
+					oscillation_height "0.3"
+					descent_height "0"
+					min_pitch "-19"
+					max_pitch "19"
+					min_roll "-17"
+					max_roll "17"
+				}
+				key "laser"
+			}
+			Pair
+			{
+				value
+				{
+					max_speed "30"
+					max_acc_speed "60"
+					acc_delay "1.5"
+					acc_time  "0.5"
+					angular_speed "7"
+					angular_shoot_speed "15"
+					acceleration "350"
+					deacceleration "100"
+					rotation_delay "0.7"
+					speed_distance_modifier "6"
+					
+					oscillation_freq "3"
+					oscillation_height "0.6"
+					descent_height "0"
+					min_pitch "-19"
+					max_pitch "19"
+					min_roll "-17"
+					max_roll "17"
+				}
+				key "charged_laser"
+			}
+			Pair
+			{
+				value
+				{
+					max_speed "60"
+					max_acc_speed "80"
+					acc_delay "1.5"
+					acc_time  "0.5"
+					angular_speed "7"
+					angular_shoot_speed "15"
+					acceleration "350"
+					deacceleration "100"
+					rotation_delay "0.7"
+					speed_distance_modifier "6"
+					
+					oscillation_freq "3"
+					oscillation_height "0.6"
+					descent_height "0"
+					min_pitch "-19"
+					max_pitch "19"
+					min_roll "-17"
+					max_roll "17"
+				}
+				key "bombs"
+			}
+			Pair
+			{
+				value
+				{
+					max_speed "50"
+					max_acc_speed "80"
+					acc_delay "1.5"
+					acc_time  "0.5"
+					angular_speed "7"
+					angular_shoot_speed "15"
+					acceleration "300"
+					deacceleration "300"
+					rotation_delay "0.7"
+					speed_distance_modifier "6"
+					
+					oscillation_freq "3"
+					oscillation_height "0.6"
+					descent_height "0"
+					min_pitch "-19"
+					max_pitch "19"
+					min_roll "-17"
+					max_roll "17"
+				}
+				key "charged_bombs"
+			}
+			Pair
+			{
+				value
+				{
+					max_speed "100"
+					max_acc_speed "100"
+					acc_delay "1.5"
+					acc_time  "0.5"
+					angular_speed "20"
+					angular_shoot_speed "20"
+					acceleration "400"
+					deacceleration "400"
+					rotation_delay "0.7"
+					speed_distance_modifier "6"
+					
+					oscillation_freq "3"
+					oscillation_height "0.6"
+					descent_height "0"
+					min_pitch "-19"
+					max_pitch "19"
+					min_roll "-17"
+					max_roll "17"
+				}
+				key "ghost"
+			}
+		}
+	}
+	
+	EffectDescComp
+	{
+		Effects
+		{
+			////////////////////////Destruction level 75 transition effects/////////////////////////
+			EffectDesc
+			{
+				group "75_transition"
+				enabled "0"				
+				delay "0"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "effects/weapon_hit/explosion_small_alien"								
+						bone "att_engine"
+					}
+				}
+			}
+			EffectDesc
+			{
+				group "75_transition"
+				enabled "0"				
+				delay "0.2"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "effects/weapon_hit/explosion_small_alien"								
+						bone "att_smoke_2"
+					}
+				}
+			}	
+			EffectDesc
+			{
+				group "75_transition"
+				enabled "0"				
+				delay "0.3"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "effects/weapon_hit/explosion_small_alien"								
+						bone "att_smoke_3"
+					}
+				}
+			}				
+			////////////////////////Destruction level 75 state effects/////////////////////////
+			EffectDesc
+			{
+				group "75_state"
+				enabled "0"				
+				delay "0"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "player/blue/effects/projectiles_and_trails/fire_trail_spaceship_01"								
+						bone "att_smoke_1"
+					}					
+				}
+			}
+			////////////////////////Destruction level 50 transition effects/////////////////////////
+			EffectDesc
+			{
+				group "50_transition"
+				enabled "0"				
+				delay "0"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "effects/weapon_hit/explosion_small_alien"								
+						bone "att_engine"
+					}
+				}
+			}
+			EffectDesc
+			{
+				group "50_transition"
+				enabled "0"				
+				delay "0.15"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "effects/weapon_hit/explosion_small_alien"								
+						bone "att_smoke_1"
+					}
+				}
+			}	
+			EffectDesc
+			{
+				group "50_transition"
+				enabled "0"				
+				delay "0.2"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "effects/weapon_hit/explosion_small_alien"								
+						bone "att_smoke_3"
+					}
+				}
+			}	
+			EffectDesc
+			{
+				group "50_transition"
+				enabled "0"				
+				delay "0.3"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "effects/weapon_hit/explosion_small_alien"								
+						bone "att_smoke_2"
+					}
+				}
+			}	
+			////////////////////////Destruction level 50 state effects/////////////////////////
+			EffectDesc
+			{
+				group "50_state"
+				enabled "0"				
+				delay "0"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "player/blue/effects/projectiles_and_trails/fire_trail_spaceship_01"								
+						bone "att_smoke_1"
+					}					
+				}
+			}
+			EffectDesc
+			{
+				group "50_state"
+				enabled "0"				
+				delay "0"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "player/blue/effects/projectiles_and_trails/fire_trail_spaceship_02"								
+						bone "att_smoke_3"
+					}					
+				}
+			}
+			////////////////////////Destruction level 25 transition effects/////////////////////////
+			EffectDesc
+			{
+				group "25_transition"
+				enabled "0"				
+				delay "0"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "effects/weapon_hit/explosion_small_alien"								
+						bone "att_engine"
+					}
+				}
+			}
+			EffectDesc
+			{
+				group "25_transition"
+				enabled "0"				
+				delay "0.15"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "effects/weapon_hit/explosion_small_alien"								
+						bone "att_smoke_1"
+					}
+				}
+			}	
+			EffectDesc
+			{
+				group "25_transition"
+				enabled "0"				
+				delay "0.2"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "effects/weapon_hit/explosion_small_alien"								
+						bone "att_smoke_3"
+					}
+				}
+			}	
+			EffectDesc
+			{
+				group "25_transition"
+				enabled "0"				
+				delay "0.3"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "effects/weapon_hit/explosion_small_alien"								
+						bone "att_smoke_2"
+					}
+				}
+			}	
+			////////////////////////Destruction level 25 state effects/////////////////////////
+			EffectDesc
+			{
+				group "25_state"
+				enabled "0"				
+				delay "0"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "player/blue/effects/projectiles_and_trails/fire_trail_spaceship_01"								
+						bone "att_smoke_1"
+					}					
+				}
+			}
+			EffectDesc
+			{
+				group "25_state"
+				enabled "0"				
+				delay "0"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "player/blue/effects/projectiles_and_trails/fire_trail_spaceship_02"								
+						bone "att_smoke_3"
+					}					
+				}
+			}
+			EffectDesc
+			{
+				group "25_state"
+				enabled "0"				
+				delay "0"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "player/blue/effects/projectiles_and_trails/fire_trail_spaceship_03"								
+						bone "att_smoke_2"
+					}					
+				}
+			}
+			////////////////////////Ghost effects/////////////////////////
+	
+			EffectDesc
+			{
+				group "ghost_state"
+				enabled "0"	
+
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "player/blue/effects/vehicles/spaceship_ghost_glow"								
+						bone "att_glow_01"
+					}					
+				}
+			}		
+			EffectDesc
+			{
+				group "ghost_state"
+				enabled "0"	
+
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "player/blue/effects/vehicles/spaceship_ghost_glow"								
+						bone "att_glow_02"
+					}					
+				}
+			}	
+			EffectDesc
+			{
+				group "ghost_state"
+				enabled "0"	
+
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "player/blue/effects/vehicles/spaceship_ghost_glow"								
+						bone "att_glow_03"
+					}					
+				}
+			}	
+			EffectDesc
+			{
+				group "ghost_state"
+				enabled "0"	
+
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "player/blue/effects/vehicles/spaceship_ghost_glow"								
+						bone "att_glow_04"
+					}					
+				}
+			}		
+			EffectDesc
+			{
+				group "ghost_state"
+				enabled "0"	
+
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "player/blue/effects/vehicles/spaceship_ghost_glow"								
+						bone "att_glow_05"
+					}					
+				}
+			}		
+			EffectDesc
+			{
+				group "ghost_state"
+				enabled "0"	
+
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "player/blue/effects/vehicles/spaceship_ghost_glow"								
+						bone "att_glow_06"
+					}					
+				}
+			}	
+			EffectDesc
+			{
+				group "ghost_state"
+				enabled "0"	
+
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "player/blue/effects/vehicles/spaceship_ghost_glow"								
+						bone "att_glow_07"
+					}					
+				}
+			}	
+			EffectDesc
+			{
+				group "ghost_state"
+				enabled "0"	
+
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "player/blue/effects/vehicles/spaceship_ghost_glow"								
+						bone "att_glow_08"
+					}					
+				}
+			}	
+			EffectDesc
+			{
+				group "ghost_state"
+				enabled "0"	
+
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "player/blue/effects/vehicles/spaceship_ghost_glow"								
+						bone "att_glow_09"
+					}					
+				}
+			}		
+			EffectDesc
+			{
+				group "ghost_state"
+				enabled "0"	
+
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "player/blue/effects/vehicles/spaceship_ghost_glow"								
+						bone "att_glow_10"
+					}					
+				}
+			}	
+			EffectDesc
+			{
+				group "ghost_state"
+				enabled "0"	
+
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "player/blue/effects/vehicles/spaceship_ghost_glow"								
+						bone "att_glow_11"
+					}					
+				}
+			}	
+			EffectDesc
+			{
+				group "ghost_state"
+				enabled "0"	
+
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "player/blue/effects/vehicles/spaceship_ghost_glow"								
+						bone "att_glow_12"
+					}					
+				}
+			}	
+			//=========== LIGHT FOR THE NIGHT LEVELS ===========
+			EffectDesc
+			{
+				group "night"
+				enabled "0"	
+				offset "1.6 0.0 2.9"
+				orientation "0 0 0"
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "player/blue/effects/vehicles/spaceship_night_light"
+					}
+				}
+			}				
+		}
+	}
+}
+EntityBlueprint
+{
+	name "player/blue/units/alien/spaceship_plasma"
+	NoSaveComp
+	{	
+	}
+	
+	RenderableDescComp
+	{
+		mesh "meshes/units/alien/spaceship_plasma.mesh"
+		material "units_alien/spaceship_blue"
+	}
+	SkeletonDescComp
+	{
+		name "meshes/units/alien/spaceship_plasma"
+	}
+	LuaDescComp
+	{
+		script "lua/units/alien/spaceship_fade_out.lua"
+	}
+}
+EntityBlueprint
+{
+	name "player/blue/units/alien/spaceship_plasma_lightning"
+	NoSaveComp
+	{	
+	}
+	
+	RenderableDescComp
+	{
+		mesh "meshes/units/alien/spaceship_plasma_ghost.mesh"
+		material "units_alien/spaceship_blue_ghost_lightning"
+	}
+	LuaDescComp
+	{
+		script "lua/units/alien/spaceship_ghost_lightning.lua"
+	}
+}
+EntityBlueprint
+{
+	name "player/blue/units/alien/spaceship_rockets"
+	NoSaveComp
+	{	
+	}
+	
+	RenderableDescComp
+	{
+		mesh "meshes/units/alien/spaceship_rockets.mesh"
+		material "units_alien/spaceship_blue"
+	}
+	SkeletonDescComp
+	{
+		name "meshes/units/alien/spaceship_rockets"
+	}
+	LuaDescComp
+	{
+		script "lua/units/alien/spaceship_fade_out.lua"
+	}
+}
+EntityBlueprint
+{
+	name "player/blue/units/alien/spaceship_rockets_lightning"
+	NoSaveComp
+	{	
+	}
+	RenderableDescComp
+	{
+		mesh "meshes/units/alien/spaceship_rockets_ghost.mesh"
+		material "units_alien/spaceship_blue_ghost_lightning"
+	}
+	LuaDescComp
+	{
+		script "lua/units/alien/spaceship_ghost_lightning.lua"
+	}
+}
+EntityBlueprint
+{
+	name "player/blue/units/alien/spaceship_laser"
+	NoSaveComp
+	{	
+	}
+	RenderableDescComp
+	{
+		mesh "meshes/units/alien/spaceship_laser.mesh"
+		material "units_alien/spaceship_blue"
+	}
+	SkeletonDescComp
+	{
+		name "meshes/units/alien/spaceship_laser"
+	}
+	LuaDescComp
+	{
+		script "lua/units/alien/spaceship_fade_out.lua"
+	}
+}
+EntityBlueprint
+{
+	name "player/blue/units/alien/spaceship_laser_lightning"
+	NoSaveComp
+	{	
+	}
+	RenderableDescComp
+	{
+		mesh "meshes/units/alien/spaceship_laser_ghost.mesh"
+		material "units_alien/spaceship_blue_ghost_lightning"
+	}
+	LuaDescComp
+	{
+		script "lua/units/alien/spaceship_ghost_lightning.lua"
+	}
+}
+EntityBlueprint
+{
+	name "player/blue/units/alien/spaceship_bombs"
+	NoSaveComp
+	{	
+	}
+	RenderableDescComp
+	{
+		mesh "meshes/units/alien/spaceship_bombs.mesh"
+		material "units_alien/spaceship_blue"
+	}
+	SkeletonDescComp
+	{
+		name "meshes/units/alien/spaceship_bombs"
+	}
+	LuaDescComp
+	{
+		script "lua/units/alien/spaceship_fade_out.lua"
+	}
+}
+EntityBlueprint
+{
+	name "player/blue/units/alien/spaceship_bombs_lightning"
+	NoSaveComp
+	{	
+	}
+	RenderableDescComp
+	{
+		mesh "meshes/units/alien/spaceship_bombs_ghost.mesh"
+		material "units_alien/spaceship_blue_ghost_lightning"
+	}
+	LuaDescComp
+	{
+		script "lua/units/alien/spaceship_ghost_lightning.lua"
+	}
+}
+EntityBlueprint
+{
+	name "player/blue/units/alien/spaceship_charge"
+	NoSaveComp
+	{	
+	}
+	RenderableDescComp
+	{
+		mesh "meshes/units/alien/spaceship_charge.mesh"
+		material "units_alien/spaceship_blue"
+	}
+	SkeletonDescComp
+	{
+		name "meshes/units/alien/spaceship_charge"
+	}
+	LuaDescComp
+	{
+		script "lua/units/alien/spaceship_fade_out.lua"
+	}
+}
+
+EntityBlueprint
+{
+	name "player/blue/units/alien/spaceship_collector"
+
+	
+	NoSaveComp
+	{
+	}
+	
+	RenderableDescComp
+	{
+		mesh		"meshes/projectiles/alien_plasma_sphere.mesh"
+		material    "plasma/sphere_small_blue"
+	}
+	
+	ParticleDescComp
+	{
+		name    "player/blue/blue_collector"
+	}	
+	
+    SkeletonDescComp
+    {
+        name    "meshes/projectiles/alien_plasma_sphere"
+    }
+	
+	AnimationComp
+	{
+		animations
+		{
+			Anim
+			{
+				animName "sphere_rotation"
+				animTime "0.0"
+			}
+		}
+	}	
+	BlueprintComp
+	{
+		blueprint "lights/point/blue_medium"
+	}
+	
+	SoundComp
+	{
+		sounds
+		{
+			Sound
+			{
+				name "explosions/debris_portal_idle"
+            }
+		}
+	}
+}
+
+EntityBlueprint
+{
+	name "player/blue/units/alien/spaceship_collector_big"
+
+	
+	NoSaveComp
+	{
+	}
+	
+	RenderableDescComp
+	{
+		mesh		"meshes/projectiles/alien_plasma_sphere.mesh"
+		material    "plasma/sphere_small_blue"
+	}
+	
+	ParticleDescComp
+	{
+		name    "player/blue/blue_collector_big"
+	}	
+	
+    SkeletonDescComp
+    {
+        name    "meshes/projectiles/alien_plasma_sphere"
+    }
+	
+	AnimationComp
+	{
+		animations
+		{
+			Anim
+			{
+				animName "sphere_rotation"
+				animTime "0.0"
+			}
+		}
+	}	
+	BlueprintComp
+	{
+		blueprint "lights/point/blue_medium"
+	}
+	
+	SoundComp
+	{
+		sounds
+		{
+			Sound
+			{
+				name "explosions/debris_portal_idle"
+            }
+		}
+	}
+}
+
+EntityBlueprint
+{
+	name "player/blue/units/alien/spaceship_collector_start"
+	NoSaveComp
+	{	
+	}
+	SoundComp
+	{
+		sounds
+		{
+			Sound
+			{
+				name "explosions/debris_portal_open"
+            }
+		}
+	}
+}
+
+EntityBlueprint
+{
+	name "player/blue/units/alien/spaceship_collector_end"
+	NoSaveComp
+	{	
+	}
+	SoundComp
+	{
+		sounds
+		{
+			Sound
+			{
+				name "explosions/debris_portal_close"
+            }
+		}
+	}
+}
+
+EntityBlueprint 
+{	
+	name 				"player/blue/units/alien/spaceship_charge_cooldown"	
+	
+	NoSaveComp
+	{	
+	}
+	RenderableDescComp
+	{
+		mesh			"meshes/units/alien/charge_cooldown.mesh"
+	}
+	
+	SkeletonDescComp
+	{
+		name			"meshes/units/alien/charge_cooldown"
+	}
+	
+	AnimationComp
+	{
+		animations
+		{
+			Anim
+			{
+				animName "idle"
+				animTime "0.0"
+			}
+		}
+	}	
+}
+EntityBlueprint
+{
+	name "player/blue/units/alien/spaceship_wreck_plasma"
+	NoSaveComp
+	{	
+	}
+	
+	RenderableDescComp
+	{
+		mesh "meshes/units/alien/spaceship_plasma.mesh"
+		material "units_alien/spaceship_blue_dest_0"
+	}	
+	
+	LuaDescComp
+	{
+		script "lua/units/alien/spaceship_wreck.lua"
+	}
+	
+	MovementComp
+	{
+		speed "0"
+		unit_size "5"
+		angle_turn_rate_toleration "1.0"
+		angle_turn_rate "0.2"
+		angle_speed "80"
+		MovementIgnoreTypes
+		{
+			MovementDestroy
+			{
+				cost "0|0|0|0|0"
+				type "prop_small|prop_medium|tree_small|tree_medium|tree_large"
+			}
+		}
+	}
+	SkeletonDescComp
+	{
+		name "meshes/units/alien/spaceship_plasma"
+	}
+	PhysicsDescComp
+	{
+		objects
+		{
+			PhysicsObjectDesc
+			{
+				dominance "1"
+				group_id "wreck"
+				type "kinematic"
+				Shapes
+				{					
+					PhysicsMeshShape
+					{
+						mesh "meshes/units/alien/spaceship_c1.nxs"
+					}
+				}
+			}
+		}
+	}
+	DestroyComp
+	{
+		DestroyPatterns
+		{
+			Pair
+			{
+				key "wreck_emp_in_the_air"
+				value
+				{
+					explosion_type 			"centered"
+					explosion_max_power 	"6000"
+					explosion_min_power 	"2000"
+					explosion_effect 		"player/blue/effects/death/death_spaceship_air"
+					
+					part_material 			"units_alien/spaceship_blue_dest_0"									
+					part_prefix 			"meshes/units/alien/spaceship_wreck"
+					part_effect 			"player/blue/effects/projectiles_and_trails/fire_trail_alien_01_short"								
+				}				
+			}	
+			Pair
+			{
+				key "wreck_out_of_control"
+				value
+				{
+					explosion_type 			"centered"
+					explosion_max_power 	"6000"
+					explosion_min_power 	"2000"
+					explosion_effect 		"player/blue/effects/death/death_spaceship_change_to_wreck"
+					
+					part_material 			"units_alien/spaceship_blue_dest_0"									
+					part_prefix 			"meshes/units/alien/spaceship"
+					part_effect 			"player/blue/effects/projectiles_and_trails/fire_trail_alien_01_short"								
+				}				
+			}
+			
+			Pair
+			{
+				key "wreck_on_impact"
+				value
+				{
+					explosion_type 			"centered"
+					explosion_max_power 	"12000"
+					explosion_min_power 	"4000"
+					explosion_effect 		"player/blue/effects/death/death_spaceship_ground"
+					
+					part_material 			"units_alien/spaceship_blue_dest_0"									
+					part_prefix 			"meshes/units/alien/spaceship_wreck"
+					part_effect 			"player/blue/effects/projectiles_and_trails/fire_trail_alien_01_short"							
+				}				
+			}	
+		}
+	}
+	
+	EffectDescComp
+	{
+		Effects
+		{			
+			////////////////////////Destruction level 0 transition effects/////////////////////////
+			EffectDesc
+			{
+				group "0_transition"
+				enabled "0"				
+				delay "0.5"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "effects/weapon_hit/explosion_small_alien"								
+						bone "att_engine"
+					}
+				}
+			}
+			EffectDesc
+			{
+				group "0_transition"
+				enabled "0"				
+				delay "1"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "effects/weapon_hit/explosion_small_alien"								
+						bone "att_smoke_1"
+					}
+				}
+			}	
+			EffectDesc
+			{
+				group "0_transition"
+				enabled "0"				
+				delay "1.5"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "effects/weapon_hit/explosion_small_alien"								
+						bone "att_smoke_3"
+					}
+				}
+			}	
+			EffectDesc
+			{
+				group "0_transition"
+				enabled "0"				
+				delay "2"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "effects/weapon_hit/explosion_small_alien"								
+						bone "att_smoke_2"
+					}
+				}
+			}	
+			EffectDesc
+			{
+				group "0_transition"
+				enabled "0"				
+				delay "2.5"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "effects/weapon_hit/explosion_small_alien"								
+						bone "att_smoke_1"
+					}
+				}
+			}	
+			EffectDesc
+			{
+				group "0_transition"
+				enabled "0"				
+				delay "3"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "effects/weapon_hit/explosion_small_alien"								
+						bone "att_smoke_3"
+					}
+				}
+			}	
+			////////////////////////Destruction level 0 state effects/////////////////////////
+			EffectDesc
+			{
+				group "0_state"
+				enabled "0"				
+				delay "0"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "player/blue/effects/projectiles_and_trails/fire_trail_spaceship_01"								
+						bone "att_smoke_1"
+					}					
+				}
+			}
+			EffectDesc
+			{
+				group "0_state"
+				enabled "0"				
+				delay "0"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "player/blue/effects/projectiles_and_trails/fire_trail_spaceship_02"								
+						bone "att_smoke_3"
+					}					
+				}
+			}
+			EffectDesc
+			{
+				group "0_state"
+				enabled "0"				
+				delay "0"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "player/blue/effects/projectiles_and_trails/fire_trail_spaceship_03"								
+						bone "att_smoke_2"
+					}					
+				}
+			}		
+		}
+	}
+}
+EntityBlueprint
+{
+	name "player/blue/units/alien/spaceship_wreck_rockets"
+	
+	NoSaveComp
+	{	
+	}
+	
+	TeamComp
+    {
+        team 2
+    }	
+	
+	BlueprintComp
+	{
+		blueprint "player/blue/units/alien/spaceship_wreck_plasma"
+	}	
+	
+	RenderableDescComp
+	{
+		mesh "meshes/units/alien/spaceship_rockets.mesh"
+		material "units_alien/spaceship_blue_dest_0"
+	}
+	PhysicsDescComp
+	{
+		objects
+		{
+			PhysicsObjectDesc
+			{
+				dominance "1"
+				group_id "wreck"
+				type "kinematic"
+				Shapes
+				{					
+					PhysicsMeshShape
+					{
+						mesh "meshes/units/alien/spaceship_c1.nxs"
+					}
+				}
+			}
+		}
+	}
+}
+EntityBlueprint
+{
+	name "player/blue/units/alien/spaceship_wreck_bombs"
+	
+	NoSaveComp
+	{	
+	}
+	
+	TeamComp
+    {
+        team 2
+    }	
+	
+	BlueprintComp
+	{
+		blueprint "player/blue/units/alien/spaceship_wreck_plasma"
+	}	
+	
+	RenderableDescComp
+	{
+		mesh "meshes/units/alien/spaceship_bombs.mesh"
+		material "units_alien/spaceship_blue_dest_0"
+	}	
+	PhysicsDescComp
+	{
+		objects
+		{
+			PhysicsObjectDesc
+			{
+				dominance "1"
+				group_id "wreck"
+				type "kinematic"
+				Shapes
+				{					
+					PhysicsMeshShape
+					{
+						mesh "meshes/units/alien/spaceship_c1.nxs"
+					}
+				}
+			}
+		}
+	}
+}
+EntityBlueprint
+{
+	name "player/blue/units/alien/spaceship_wreck_laser"
+	NoSaveComp
+	{	
+	}
+	BlueprintComp
+	{
+		blueprint "player/blue/units/alien/spaceship_wreck_plasma"
+	}	
+	
+	TeamComp
+    {
+        team 2
+    }	
+	
+	RenderableDescComp
+	{
+		mesh "meshes/units/alien/spaceship_laser.mesh"
+		material "units_alien/spaceship_blue_dest_0"
+	}
+	PhysicsDescComp
+	{
+		objects
+		{
+			PhysicsObjectDesc
+			{
+				dominance "1"
+				group_id "wreck"
+				type "kinematic"
+				Shapes
+				{					
+					PhysicsMeshShape
+					{
+						mesh "meshes/units/alien/spaceship_c1.nxs"
+					}
+				}
+			}
+		}
+	}
+}
+EntityBlueprint
+{
+	name "player/blue/units/alien/spaceship_wreck_charge"
+	
+	NoSaveComp
+	{	
+	}
+	
+	TeamComp
+    {
+        team 2
+    }	
+	
+	BlueprintComp
+	{
+		blueprint "player/blue/units/alien/spaceship_wreck_plasma"
+	}	
+	
+	RenderableDescComp
+	{
+		mesh "meshes/units/alien/spaceship_charge.mesh"
+		material "units_alien/spaceship_blue_dest_0"
+	}	
+	PhysicsDescComp
+	{
+		objects
+		{
+			PhysicsObjectDesc
+			{
+				dominance "1"
+				group_id "wreck"
+				type "kinematic"
+				Shapes
+				{					
+					PhysicsMeshShape
+					{
+						mesh "meshes/units/alien/spaceship_c1.nxs"
+					}
+				}
+			}
+		}
+	}
+}

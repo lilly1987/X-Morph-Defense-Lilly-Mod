@@ -1,0 +1,97 @@
+EntityBlueprint
+{
+	name "projectiles/tower_ground_flamer_artillery"
+	BlueprintComp
+	{
+		blueprint "effects/projectiles_and_trails/flamer_artillery_trail"
+	}
+
+	RenderableDescComp
+	{
+		mesh "meshes/projectiles/alien_artillery_shell_medium.mesh"
+	}
+
+	MovementComp
+	{
+		speed "100"
+	}
+
+	TypeComp
+	{
+		type "artillery_shell"
+	}
+
+	LifeTimeComp
+	{
+		time "5"
+	}
+
+	PhysicsDescComp
+	{
+		objects
+		{
+			PhysicsObjectDesc
+			{
+				group_id "rocket"
+				type "kinematic"
+				Shapes
+				{
+					PhysicsSphereShape
+					{
+						r "2"
+					}
+
+				}
+
+			}
+
+		}
+
+	}
+
+#ifdef win32
+	MarkerComp
+	{
+		icon_path "marker_projectile_missile_alien"
+	}
+#endif
+
+	AmmoComp
+	{
+		definition "ArtilleryAmmoDef"
+		{
+			on_enemy_hit_effect "effects/weapon_hit/flamer_artillery_ground_explosion"
+			on_world_hit_effect "effects/weapon_hit/flamer_artillery_ground_explosion"
+			hit_effect_direction "up"
+			collision_3d "shield_all|world|world_blocker|shield|destructible|ground_unit|air_unit|water_unit|core|boss|destructor|chunk|chunk_builder"
+			DamagePattern
+			{
+
+                ShockWave
+                {
+                    speed			"60"
+                    radius          "30"
+                }
+				
+				DamagePattern
+				{
+					value "8"
+				}
+				
+				TimeDamage
+                {
+                    value 			"5"
+                    duration 		"6"
+                    type            "fire"
+                    effect			"effects/projectiles_and_trails/fire_trail_03"	
+                }
+
+			}
+
+		}
+
+	}
+
+}
+
+

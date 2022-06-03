@@ -1,0 +1,90 @@
+EntityBlueprint
+{
+	name "projectiles/tower_ground_artillery"
+	BlueprintComp
+	{
+		blueprint "player/blue/effects/projectiles_and_trails/alien_artillery"
+	}
+
+	RenderableDescComp
+	{
+		mesh "meshes/projectiles/alien_artillery_shell_medium.mesh"
+	}
+
+	MovementComp
+	{
+		speed "100"
+	}
+
+	TypeComp
+	{
+		type "artillery_shell"
+	}
+
+	LifeTimeComp
+	{
+		time "5"
+	}
+
+	PhysicsDescComp
+	{
+		objects
+		{
+			PhysicsObjectDesc
+			{
+				group_id "rocket"
+				type "kinematic"
+				Shapes
+				{
+					PhysicsSphereShape
+					{
+						r "2"
+					}
+
+				}
+
+			}
+
+		}
+
+	}
+
+#ifdef win32
+	MarkerComp
+	{
+		icon_path "marker_projectile_missile_alien"
+	}
+#endif
+
+	AmmoComp
+	{
+		definition "ArtilleryAmmoDef"
+		{
+			on_enemy_hit_effect "effects/weapon_hit/artillery_ground_explosion"
+			on_world_hit_effect "effects/weapon_hit/artillery_ground_explosion"
+			hit_effect_direction "up"
+			collision_3d "shield_all|world|world_blocker|shield|destructible|ground_unit|air_unit|water_unit|core|boss|destructor|chunk|chunk_builder"
+			DamagePattern
+			{
+				Damage
+				{
+					value "42"
+					type "artillery_tower"
+				}
+
+				Area
+				{
+					radius "10"
+					type "explosion"
+					//splash_effect "effects/weapon_hit/splash_damage_hit"
+				}
+
+			}
+
+		}
+
+	}
+
+}
+
+

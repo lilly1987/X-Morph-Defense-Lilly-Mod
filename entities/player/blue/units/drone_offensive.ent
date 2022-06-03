@@ -1,0 +1,121 @@
+EntityBlueprint
+{
+	name "player/blue/units/drone_offensive"
+	
+	BehaviourComp
+	{
+		behaviour_defs 
+		{
+			OffensiveDroneBehaviourDef
+			{
+				distance	"17.0"
+				turret		"main_turret"
+				weapon		"main_weapon"
+			}
+		}
+	}
+
+	//EffectDescComp
+	//{
+	//	Effects
+	//	{
+	//		EffectDesc
+	//		{
+	//			RandomEffectVec
+	//			{
+	//				RandomEffect
+	//				{
+	//					blueprint "effects/vehicles/rocket_engine"
+	//					bone "att_engine"
+	//				}
+	//			}
+	//		}
+	//	}
+	//}
+
+	RenderableDescComp
+	{
+		mesh "meshes/units/alien/drone_offensive.mesh"
+		material "units_alien/drone_offensive_blue"
+	}
+	
+	SkeletonDescComp
+	{
+		name "meshes/units/alien/drone_offensive"
+	}
+	
+	AnimationComp
+	{
+		animations
+		{
+			Anim
+			{
+				animName "idle"
+				animTime "0.0"
+			}
+		}
+	}	
+
+	TeamComp
+	{
+		team 2
+	}
+
+	TurretComp
+	{
+		Turrets
+		{
+			Turret
+			{
+				name "main_turret"
+				target "air_unit|ground_unit"
+				speed "720"
+				aim_volume "CylindricalAimVolume"
+				{
+					range_min "0"
+					range_max "36"
+					aiming_range "40"
+				}
+				yaw "att_muzzle"
+				pitch "att_muzzle"
+			}
+		}
+	}	
+	
+	WeaponComp
+	{
+		Weapons
+		{
+			Weapon
+			{
+				Muzzles
+				{
+					Muzzle
+					{
+						attachment "att_muzzle"
+					}
+				}
+
+				weapon_emissive_affector
+				{
+					emissive_time "0.5"
+					emissive_factor "5.0"
+				}
+
+				name "main_weapon"
+				
+				weapon_controller "TurretWeaponController"
+				{
+					turret "main_turret"
+				}
+
+				weapon_definition "ProjectileWeaponDef"
+				{
+					fire_rate "0.4"
+					ammo_blueprint "player/blue/projectiles/player_drone_plasma"
+				}
+			}
+		}
+	}
+}
+

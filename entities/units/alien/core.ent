@@ -1,0 +1,1411 @@
+EntityBlueprint
+{
+	name "units/alien/core"
+    
+	SoundComp
+	{
+		sounds
+		{
+			Sound
+			{
+				name "engines/core"
+			}
+		}
+	}
+    
+    ChildDescComp
+    {
+        children
+        {
+            ChildDesc
+            {
+                blueprint       "shield/core_shield_1"
+				orientation 	"0 0 0"
+            }
+			ChildDesc
+            {
+                blueprint       "shield/core_shield_2"
+				orientation 	"0 0 0"
+            }
+		    ChildDesc
+            {
+                blueprint       "shield/core_shield_3"
+				orientation 	"0 0 0"
+            }
+			ChildDesc
+            {
+                blueprint       "shield/core_shield_4"
+				orientation 	"0 0 0"
+            }
+			ChildDesc
+            {
+                blueprint       "shield/core_shield_5"
+				orientation 	"0 0 0"
+            }
+			ChildDesc
+            {
+                blueprint       "shield/core_shield_2"
+				orientation 	"0 120 0"
+            }
+		    ChildDesc
+            {
+                blueprint       "shield/core_shield_3"
+				orientation 	"0 120 0"
+            }
+			ChildDesc
+            {
+                blueprint       "shield/core_shield_4"
+				orientation 	"0 120 0"
+            }
+			ChildDesc
+            {
+                blueprint       "shield/core_shield_5"
+				orientation 	"0 120 0"
+            }
+			ChildDesc
+            {
+                blueprint       "shield/core_shield_2"
+				orientation 	"0 240 0"
+            }
+		    ChildDesc
+            {
+                blueprint       "shield/core_shield_3"
+				orientation 	"0 240 0"
+            }
+			ChildDesc
+            {
+                blueprint       "shield/core_shield_4"
+				orientation 	"0 240 0"
+            }
+			ChildDesc
+            {
+                blueprint       "shield/core_shield_5"
+				orientation 	"0 240 0"
+            }
+        }
+    }
+
+    PhysicsDescComp
+    {
+        objects
+        {
+            PhysicsObjectDesc
+            {
+                type "kinematic"
+                group_id "core"
+                Shapes
+                {
+					PhysicsShape "PhysicsMeshShape"
+                    {
+                        mesh "meshes/units/alien/core_lvl1_c1.nxs"
+                    }
+                }
+            }
+        }
+    }
+
+	SkeletonDescComp
+	{
+		name "meshes/units/alien/core_lvl1"
+	}
+
+	RenderableDescComp
+	{
+		mesh "meshes/units/alien/core_lvl1.mesh"
+	}
+
+	CreepCreatorComp
+	{
+		radius              "22"
+        energy_radius       "0"  
+        emissive_radius     "14"
+		creation_time_step  "0.5"
+	}
+
+	LocalAabbComp
+	{
+		local_aabb
+		{
+			min
+			{
+				y "-17"
+				x "-17"
+				z "-2"
+			}
+
+			max
+			{
+				y "17"
+				x "17"
+				z "21"
+			}
+
+		}
+
+	}
+
+	MovementComp
+	{
+		unit_size "40"
+	}
+	
+	TurretComp
+	{
+		Turrets
+		{
+			Turret
+			{
+				name "main_turret"
+				target "ground_unit"
+				speed "90"
+				aim_volume "CylindricalAimVolume"
+				{
+					range_min "0"
+					range_max "24"
+					aiming_range "30"
+				}
+				yaw "att_muzzle_1"
+				pitch "att_muzzle_1"
+			}
+
+		}
+
+	}	
+	
+	WeaponComp
+	{
+		Weapons
+		{
+			Weapon
+			{
+				name "main_gun"
+				weapon_controller "TurretWeaponController"
+				{
+					turret "main_turret"
+				}
+
+				Muzzles
+				{
+					Muzzle
+					{
+						attachment "att_muzzle_1"
+					}
+
+				}
+
+				weapon_definition "InstantWeaponDef"
+				{
+					fire_rate "5"
+					FirePattern
+					{
+						burst_column_spacing "0"
+						burst_rate "0"
+						burst_rows "1"
+						burst_column_angle "0"
+						burst_columns "1"
+					}
+
+					fire_effect "effects/weapon_fire/alien_core_muzzle"
+					ammo_blueprint "projectiles/core_weapon"
+				}
+
+			}
+
+		}
+
+	}
+	
+	HealthComp
+	{
+		damage_highlight "0"
+		max_health "4000"
+		health "4000"
+
+		armor_map
+		{
+            Pair
+            {
+                value 	"0.50"
+                key 	"anti_core_bombs"
+            }
+			
+            Pair
+            {
+                value "0.0"
+                key "anti_player"
+            }
+            
+            Pair
+            {
+                value "0.0"
+                key "wreck_explosion"
+            }
+            
+            Pair
+            {
+                key "laser_boss"
+                value "0.05"
+            }
+
+			Pair
+			{
+				value "2.0"
+				key "artillery"
+			}			
+		}
+		DestructionLevels
+		{			
+			DestructionLevel
+			{
+				destroy_comp_delay 					"0.51"
+				health 								"75"
+				destroy_state_change_effect_group 	"75_transition"
+				destroy_comp_event 					"75_destroy"
+				destroyed_state_material 			"units_alien/core_dest_75"
+				destroyed_state_effect_group 		"75_state"	
+				destrucion_level_name 				"75"
+			}				
+			DestructionLevel
+			{
+				destroy_comp_delay 					"0.51"
+				health 								"50"
+				destroy_state_change_effect_group 	"50_transition"
+				destroy_comp_event 					"50_destroy"
+				destroyed_state_material 			"units_alien/core_dest_50"
+				destroyed_state_effect_group 		"50_state"		
+				destrucion_level_name 				"50"
+			}	
+			DestructionLevel
+			{
+				destroy_comp_delay 					"0.51"
+				health 								"25"
+				destroy_state_change_effect_group 	"25_transition"
+				destroy_comp_event 					"25_destroy"
+				destroyed_state_material 			"units_alien/core_dest_25"
+				destroyed_state_effect_group 		"25_state"	
+				destrucion_level_name 				"25"
+			}					
+			DestructionLevel
+			{
+				destroy_comp_delay 					"7"
+				health 								"0"
+				destroy_state_change_effect_group 	"0_transition"
+				destroy_comp_event 					"0_destroy"
+				//destroyed_state_mesh 				"meshes/units/bosses/four_leg_mech/leg_front_left_dest_0.mesh"
+				destroyed_state_material 			"units_alien/core_dest_0"
+				destroyed_state_effect_group 		"0_state"	
+				destrucion_level_name 				"0"
+			}
+		}		
+	}	
+	
+	DestroyComp
+	{
+		spawn_collectable_parts "1"
+		DestroyPatterns
+		{		
+			Pair
+			{
+				key "25_destroy"
+				value
+				{
+					explosion_type 					"centered"
+					explosion_max_power 			"12000"
+					explosion_min_power 			"4000"					
+
+					part_material_center			"units_alien/spaceship_blue_dest_25"
+					part_prefix_center 				"meshes/units/alien/spaceship"	
+					part_effect 					"player/blue/effects/projectiles_and_trails/fire_trail_alien_01"							
+				}				
+			}		
+			Pair
+			{
+				key "50_destroy"
+				value
+				{
+					explosion_type 					"centered"
+					explosion_max_power 			"12000"
+					explosion_min_power 			"4000"					
+
+					part_material_center 			"units_alien/spaceship_blue_dest_25"
+					part_prefix_center 				"meshes/units/alien/spaceship"	
+					part_effect 					"player/blue/effects/projectiles_and_trails/fire_trail_alien_01"							
+				}				
+			}		
+			Pair
+			{
+				key "75_destroy"
+				value
+				{
+					explosion_type 					"centered"
+					explosion_max_power 			"12000"
+					explosion_min_power 			"4000"		
+
+					part_material_center 			"units_alien/spaceship_blue_dest_25"
+					part_prefix_center 				"meshes/units/alien/spaceship"	
+					part_effect 					"player/blue/effects/projectiles_and_trails/fire_trail_alien_01"							
+				}				
+			}			
+			Pair
+			{
+				key "0_destroy"
+				value
+				{
+					type 							"skeleton"
+					explosion_type 					"centered"
+					explosion_max_power 			"12000"
+					explosion_min_power 			"4000"
+					explosion_effect 				"effects/death/death_core"
+
+					part_material 					"units_alien/spaceship_blue_dest_25"
+					part_prefix 					"meshes/units/alien/spaceship"
+					part_effect 					"player/blue/effects/projectiles_and_trails/fire_trail_alien_01"
+					part_physics_material 			"debris_heavy"
+				}				
+			}			
+		}
+	}	
+	EffectDescComp
+	{
+		Effects
+		{	
+			EffectDesc
+			{
+				group "core_emergency_shockwave"
+				enabled "0"				
+				delay "0.0"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "effects/misc/core_emergency_shockwave"								
+						bone "att_smoke_3"
+					}
+				}
+			}				
+			////////////////////////Destruction level 75 transition effects/////////////////////////
+			EffectDesc
+			{
+				group "75_transition"
+				enabled "0"				
+				delay "0.0"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "effects/weapon_hit/explosion_flash_alien_big"								
+						bone "att_smoke_3"
+					}
+				}
+			}			
+			EffectDesc
+			{
+				group "75_transition"
+				enabled "0"				
+				delay "0.2"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "effects/weapon_hit/explosion_medium_alien_with_shake"								
+						bone "att_smoke_1"
+					}
+				}
+			}
+			EffectDesc
+			{
+				group "75_transition"
+				enabled "0"				
+				delay "0.4"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "effects/weapon_hit/explosion_medium_alien_with_shake"								
+						bone "att_smoke_2"
+					}
+				}
+			}			
+			EffectDesc
+			{
+				group "75_transition"
+				enabled "0"				
+				delay "0.6"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "effects/weapon_hit/explosion_big_alien_with_shake"								
+						bone "att_smoke_4"
+					}
+				}
+			}
+			EffectDesc
+			{
+				group "75_transition"
+				enabled "0"				
+				delay "0.8"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "effects/weapon_hit/explosion_medium_alien_with_shake"								
+						bone "att_smoke_6"
+					}
+				}
+			}		
+			EffectDesc
+			{
+				group "75_transition"
+				enabled "0"				
+				delay "1.0"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "effects/weapon_hit/explosion_medium_alien_with_shake"								
+						bone "att_smoke_1"
+					}
+				}
+			}				
+			
+			////////////////////////Destruction level 75 state effects/////////////////////////
+			EffectDesc
+			{
+				group "75_state"
+				enabled "0"				
+				delay "0"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "player/blue/effects/projectiles_and_trails/fire_trail_spaceship_03"								
+						bone "att_smoke_1"
+					}
+				}
+			}				
+			EffectDesc
+			{
+				group "75_state"
+				enabled "0"				
+				delay "0"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "player/blue/effects/projectiles_and_trails/alien_fire_trail_01_big"								
+						bone "att_smoke_2"
+					}
+				}
+			}					
+			////////////////////////Destruction level 50 transition effects/////////////////////////
+			EffectDesc
+			{
+				group "50_transition"
+				enabled "0"				
+				delay "0.0"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "effects/weapon_hit/explosion_flash_alien_big"								
+						bone "att_smoke_3"
+					}
+				}
+			}			
+			EffectDesc
+			{
+				group "50_transition"
+				enabled "0"				
+				delay "0.2"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "effects/weapon_hit/explosion_medium_alien_with_shake"								
+						bone "att_smoke_1"
+					}
+				}
+			}
+			EffectDesc
+			{
+				group "50_transition"
+				enabled "0"				
+				delay "0.4"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "effects/weapon_hit/explosion_medium_alien_with_shake"								
+						bone "att_smoke_2"
+					}
+				}
+			}			
+			EffectDesc
+			{
+				group "50_transition"
+				enabled "0"				
+				delay "0.6"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "effects/weapon_hit/explosion_big_alien_with_shake"								
+						bone "att_smoke_3"
+					}
+				}
+			}
+			EffectDesc
+			{
+				group "50_transition"
+				enabled "0"				
+				delay "0.8"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "effects/weapon_hit/explosion_medium_alien_with_shake"								
+						bone "att_smoke_4"
+					}
+				}
+			}		
+			EffectDesc
+			{
+				group "50_transition"
+				enabled "0"				
+				delay "1.0"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "effects/weapon_hit/explosion_medium_alien_with_shake"								
+						bone "att_smoke_6"
+					}
+				}
+			}				
+			
+			////////////////////////Destruction level 50 state effects/////////////////////////
+			EffectDesc
+			{
+				group "50_state"
+				enabled "0"				
+				delay "0"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "player/blue/effects/projectiles_and_trails/alien_fire_trail_01_big"								
+						bone "att_smoke_6"
+					}				
+				}
+			}	
+			EffectDesc
+			{
+				group "50_state"
+				enabled "0"				
+				delay "0"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "player/blue/effects/projectiles_and_trails/fire_trail_spaceship_03"								
+						bone "att_smoke_5"
+					}		
+				}
+			}				
+			EffectDesc
+			{
+				group "50_state"
+				enabled "0"				
+				delay "0"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "player/blue/effects/projectiles_and_trails/fire_trail_spaceship_03"								
+						bone "att_smoke_1"
+					}
+				}
+			}				
+			EffectDesc
+			{
+				group "50_state"
+				enabled "0"				
+				delay "0"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "player/blue/effects/projectiles_and_trails/alien_fire_trail_01_big"								
+						bone "att_smoke_2"
+					}
+				}
+			}				
+			////////////////////////Destruction level 25 transition effects/////////////////////////
+			EffectDesc
+			{
+				group "25_transition"
+				enabled "0"				
+				delay "0.0"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "effects/weapon_hit/explosion_flash_alien_big"								
+						bone "att_smoke_3"
+					}
+				}
+			}			
+			EffectDesc
+			{
+				group "25_transition"
+				enabled "0"				
+				delay "0.2"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "effects/weapon_hit/explosion_medium_alien_with_shake"								
+						bone "att_smoke_1"
+					}
+				}
+			}
+			EffectDesc
+			{
+				group "25_transition"
+				enabled "0"				
+				delay "0.4"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "effects/weapon_hit/explosion_medium_alien_with_shake"								
+						bone "att_smoke_2"
+					}
+				}
+			}			
+			EffectDesc
+			{
+				group "25_transition"
+				enabled "0"				
+				delay "0.6"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "effects/weapon_hit/explosion_big_alien_with_shake"								
+						bone "att_smoke_6"
+					}
+				}
+			}
+			EffectDesc
+			{
+				group "25_transition"
+				enabled "0"				
+				delay "0.8"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "effects/weapon_hit/explosion_medium_alien_with_shake"								
+						bone "att_smoke_4"
+					}
+				}
+			}		
+			EffectDesc
+			{
+				group "25_transition"
+				enabled "0"				
+				delay "1.0"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "effects/weapon_hit/explosion_medium_alien_with_shake"								
+						bone "att_smoke_3"
+					}
+				}
+			}				
+			
+			////////////////////////Destruction level 25 state effects/////////////////////////
+			EffectDesc
+			{
+				group "25_state"
+				enabled "0"				
+				delay "0"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "player/blue/effects/projectiles_and_trails/alien_fire_trail_01_big"								
+						bone "att_smoke_3"
+					}
+				}
+			}		
+			EffectDesc
+			{
+				group "25_state"
+				enabled "0"				
+				delay "0"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "player/blue/effects/projectiles_and_trails/alien_fire_trail_01_big"								
+						bone "att_smoke_4"
+					}
+				}
+			}				
+			EffectDesc
+			{
+				group "25_state"
+				enabled "0"				
+				delay "0"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "player/blue/effects/projectiles_and_trails/alien_fire_trail_01_big"								
+						bone "att_smoke_6"
+					}				
+				}
+			}	
+			EffectDesc
+			{
+				group "25_state"
+				enabled "0"				
+				delay "0"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "player/blue/effects/projectiles_and_trails/fire_trail_spaceship_03"								
+						bone "att_smoke_5"
+					}		
+				}
+			}				
+			EffectDesc
+			{
+				group "25_state"
+				enabled "0"				
+				delay "0"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "player/blue/effects/projectiles_and_trails/fire_trail_spaceship_03"								
+						bone "att_smoke_1"
+					}
+				}
+			}				
+			EffectDesc
+			{
+				group "25_state"
+				enabled "0"				
+				delay "0"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "player/blue/effects/projectiles_and_trails/alien_fire_trail_01_big"								
+						bone "att_smoke_2"
+					}
+				}
+			}				
+			////////////////////////Destruction level 0 transition effects/////////////////////////
+			EffectDesc
+			{
+				group "0_transition"
+				enabled "0"				
+				delay "0.0"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "effects/weapon_hit/explosion_flash_alien_big"								
+						bone "att_smoke_3"
+					}
+				}
+			}			
+			EffectDesc
+			{
+				group "0_transition"
+				enabled "0"				
+				delay "0.1"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "effects/weapon_hit/explosion_medium_alien_with_shake"								
+						bone "att_smoke_1"
+					}
+				}
+			}
+			EffectDesc
+			{
+				group "0_transition"
+				enabled "0"				
+				delay "0.2"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "effects/weapon_hit/explosion_medium_alien_with_shake"								
+						bone "att_smoke_2"
+					}
+				}
+			}						
+			EffectDesc
+			{
+				group "0_transition"
+				enabled "0"				
+				delay "0.3"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "effects/weapon_hit/explosion_medium_alien_with_shake"								
+						bone "att_smoke_3"
+					}
+				}
+			}
+			EffectDesc
+			{
+				group "0_transition"
+				enabled "0"				
+				delay "0.5"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "effects/weapon_hit/explosion_medium_alien_with_shake"								
+						bone "att_smoke_4"
+					}
+				}
+			}
+			EffectDesc
+			{
+				group "0_transition"
+				enabled "0"				
+				delay "0.6"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "effects/weapon_hit/explosion_medium_alien_with_shake"								
+						bone "att_smoke_6"
+					}
+				}
+			}
+			EffectDesc
+			{
+				group "0_transition"
+				enabled "0"				
+				delay "0.7"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "effects/weapon_hit/explosion_medium_alien_with_shake"								
+						bone "att_smoke_3"
+					}
+				}
+			}			
+			EffectDesc
+			{
+				group "0_transition"
+				enabled "0"				
+				delay "0.75"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "effects/weapon_hit/explosion_medium_alien_with_shake"								
+						bone "att_smoke_2"
+					}
+				}
+			}
+			EffectDesc
+			{
+				group "0_transition"
+				enabled "0"				
+				delay "0.8"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "effects/weapon_hit/explosion_medium_alien_with_shake"								
+						bone "att_smoke_1"
+					}
+				}
+			}			
+			EffectDesc
+			{
+				group "0_transition"
+				enabled "0"				
+				delay "1.1"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "effects/weapon_hit/explosion_medium_alien_with_shake"								
+						bone "att_smoke_4"
+					}
+				}
+			}			
+			EffectDesc
+			{
+				group "0_transition"
+				enabled "0"				
+				delay "1.4"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "effects/weapon_hit/explosion_medium_alien_with_shake"								
+						bone "att_smoke_6"
+					}
+				}
+			}
+			EffectDesc
+			{
+				group "0_transition"
+				enabled "0"				
+				delay "1.7"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "effects/weapon_hit/explosion_medium_alien_with_shake"								
+						bone "att_smoke_2"
+					}
+				}
+			}						
+			EffectDesc
+			{
+				group "0_transition"
+				enabled "0"				
+				delay "2.0"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "effects/weapon_hit/explosion_big_alien_with_shake"								
+						bone "att_smoke_3"
+					}
+				}
+			}
+			EffectDesc
+			{
+				group "0_transition"
+				enabled "0"				
+				delay "2.3"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "effects/weapon_hit/explosion_big_alien_with_shake"								
+						bone "att_smoke_1"
+					}
+				}
+			}
+			EffectDesc
+			{
+				group "0_transition"
+				enabled "0"				
+				delay "2.6"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "effects/weapon_hit/explosion_big_alien_with_shake"								
+						bone "att_smoke_6"
+					}
+				}
+			}
+			EffectDesc
+			{
+				group "0_transition"
+				enabled "0"				
+				delay "2.9"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "effects/weapon_hit/explosion_big_alien_with_shake"								
+						bone "att_smoke_3"
+					}
+				}
+			}			
+			EffectDesc
+			{
+				group "0_transition"
+				enabled "0"				
+				delay "3.2"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "effects/weapon_hit/explosion_big_alien_with_shake"								
+						bone "att_smoke_4"
+					}
+				}
+			}
+			EffectDesc
+			{
+				group "0_transition"
+				enabled "0"				
+				delay "3.5"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "effects/weapon_hit/explosion_big_alien_with_shake"								
+						bone "att_smoke_1"
+					}
+				}
+			}					
+			EffectDesc
+			{
+				group "0_transition"
+				enabled "0"				
+				delay "3.8"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "effects/weapon_hit/explosion_big_alien_with_shake"								
+						bone "att_smoke_3"
+					}
+				}
+			}			
+			EffectDesc
+			{
+				group "0_transition"
+				enabled "0"				
+				delay "4.1"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "effects/weapon_hit/explosion_big_alien_with_shake"								
+						bone "att_smoke_6"
+					}
+				}
+			}
+			EffectDesc
+			{
+				group "0_transition"
+				enabled "0"				
+				delay "4.4"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "effects/death/death_tower"								
+						bone "att_smoke_5"
+					}
+				}
+			}						
+			EffectDesc
+			{
+				group "0_transition"
+				enabled "0"				
+				delay "5.0"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "effects/death/death_tower"								
+						bone "att_smoke_3"
+					}
+				}
+			}
+			EffectDesc
+			{
+				group "0_transition"
+				enabled "0"				
+				delay "5.6"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "effects/death/death_tower"								
+						bone "att_smoke_4"
+					}
+				}
+			}
+			EffectDesc
+			{
+				group "0_transition"
+				enabled "0"				
+				delay "6.0"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "effects/death/death_tower"								
+						bone "att_smoke_6"
+					}
+				}
+			}
+			EffectDesc
+			{
+				group "0_transition"
+				enabled "0"				
+				delay "6.4"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "effects/death/death_tower"								
+						bone "att_smoke_2"
+					}
+				}
+			}
+			EffectDesc
+			{
+				group "0_transition"
+				enabled "0"				
+				delay "6.6"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "effects/death/death_tower"								
+						bone "att_smoke_1"
+					}
+				}
+			}				
+			////////////////////////Destruction level 0 state effects/////////////////////////			
+			EffectDesc
+			{
+				group "0_state"
+				enabled "0"				
+				delay "0"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "player/blue/effects/projectiles_and_trails/alien_fire_trail_01_big"									
+						bone "att_smoke_1"
+					}
+				}
+			}
+			EffectDesc
+			{
+				group "0_state"
+				enabled "0"				
+				delay "0"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "player/blue/effects/projectiles_and_trails/alien_fire_trail_01_big"									
+						bone "att_smoke_2"
+					}
+				}
+			}
+			EffectDesc
+			{
+				group "0_state"
+				enabled "0"				
+				delay "0"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "player/blue/effects/projectiles_and_trails/alien_fire_trail_01_big"									
+						bone "att_smoke_3"
+					}
+				}
+			}
+			EffectDesc
+			{
+				group "0_state"
+				enabled "0"				
+				delay "0"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "player/blue/effects/projectiles_and_trails/alien_fire_trail_01_big"									
+						bone "att_smoke_4"
+					}
+				}
+			}
+			EffectDesc
+			{
+				group "0_state"
+				enabled "0"				
+				delay "0"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "player/blue/effects/projectiles_and_trails/alien_fire_trail_01_big"									
+						bone "att_smoke_5"
+					}
+				}
+			}
+			EffectDesc
+			{
+				group "0_state"
+				enabled "0"				
+				delay "0"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "player/blue/effects/projectiles_and_trails/alien_fire_trail_01_big"									
+						bone "att_smoke_6"
+					}
+				}
+			}		
+
+			//=========== BLUE LIGHT FOR THE NIGHT LEVELS ===========
+			EffectDesc
+			{
+				group "night"
+				enabled "0"	
+				offset "0.0 0.0 10.0"
+				orientation "0 0 0"
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "effects/vehicles/alien_core_light_blue"
+					}
+				}
+			}	
+			EffectDesc
+			{
+				group "core_energy"
+				enabled "0"	
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "effects/vehicles/eiffel_energy_core_to_tower"
+						bone "att_core_energy"
+					}
+				}
+			}				
+		}
+	}		
+
+	MarkerComp
+	{
+		icon_path "marker_core"
+	}
+
+	LuaDescComp
+	{
+		script "lua/units/alien/core.lua"
+	}
+
+	TypeComp
+	{
+		type "core|ground_unit"
+	}
+
+	NodeCullerComp
+	{
+		manual "0"
+		size "48"
+		nav_mesh_cull_type "1"
+		is_moveable "1"
+	}
+
+	//DestroyComp
+	//{
+	//	DestroyPatterns
+	//	{
+	//		Pair
+	//		{
+	//			value
+	//			{
+    //
+	//				explosion_type "centered"
+	//				explosion_max_power "100"
+	//				explosion_min_power "50"
+	//				part_mass "300"
+	//				part_material "vegetation/tree_large_pine_01_influenced"
+	//				explosion_effect "effects/death/death_core"
+	//				part_prefix "meshes/props/vegetation/tree_large_pine_01"
+	//				part_effect "effects/projectiles_and_trails/part_trail_short_cheap"
+	//				part_lifetime "100"
+	//			}
+    //
+	//			key "default"
+	//		}
+    //
+	//	}
+    //
+	//}
+
+}
+

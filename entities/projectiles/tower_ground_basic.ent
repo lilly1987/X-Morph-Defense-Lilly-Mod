@@ -1,0 +1,50 @@
+EntityBlueprint
+{
+	name "projectiles/tower_ground_basic"
+	BlueprintComp
+	{
+		blueprint "effects/projectiles_and_trails/tower_ground_basic_bullet"
+	}
+
+	MovementComp
+	{
+		speed "100"
+	}
+
+	LifeTimeComp
+	{
+		time "3"
+	}
+
+#ifdef win32
+	MarkerComp
+	{
+		icon_path "marker_projectile_bullet_alien"
+	}
+#endif
+
+	AmmoComp
+	{
+		definition "ProjectileAmmoDef"
+		{
+			range "20"
+			max_hits "1"
+			on_enemy_hit_effect "player/blue/effects/weapon_hit/alien_plasma_enemy_hit"
+			on_world_hit_effect "player/blue/effects/weapon_hit/alien_plasma_world_hit"
+			collision_3d "shield_all|destructor|world|world_blocker|shield|shield_plasma|destructible|ground_unit|air_unit|water_unit|rocket|boss|chunk|chunk_builder"
+			DamagePattern
+			{
+				Damage
+				{
+					value 	"10"
+					type 	"plasma_tower"
+				}
+
+			}
+
+		}
+
+	}
+
+}
+

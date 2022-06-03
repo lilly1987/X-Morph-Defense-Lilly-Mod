@@ -1,0 +1,37 @@
+EntityBlueprint
+{
+    name "projectiles/tower_ground_flamer"
+
+    FlameComp
+    {
+        definition "FlameAmmoDef"
+        { 
+            range 					"16"
+            max_hits				"16"
+            diameter 				"5"
+            
+            box_count				"3"
+            angle_speed				"80"
+            range_speed				"1.5"
+
+            collision_3d			"shield_all|destructor|shield|ground_unit|rocket|boss|destructible"
+            
+            DamagePattern
+            {
+                Damage
+                {
+                	value 			"0.1"
+					type			"fire"
+                }
+                
+                TimeDamage
+                {
+                    value 			"3"
+                    duration 		"6"
+                    type            "fire"
+                    effect			"effects/projectiles_and_trails/fire_trail_03"	
+                }
+            }
+        }
+    }
+}

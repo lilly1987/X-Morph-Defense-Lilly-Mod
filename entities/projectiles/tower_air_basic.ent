@@ -1,0 +1,31 @@
+EntityBlueprint
+{
+    name "projectiles/tower_air_basic"
+    
+    AmmoComp
+    {
+        definition "FlakAmmoDef"
+        { 
+            on_enemy_hit_effect "effects/weapon_hit/alien_artillery_air_explosion"
+
+            dispersion		"0"
+            
+            DamagePattern
+            {
+                Damage
+                {
+                    value 			"20"
+					type "air_basic_tower"
+                }
+
+                Area
+                {
+                    radius 			"1"
+                    type 			"explosion"
+                    splash_effect   "effects/weapon_hit/splash_damage_hit_small"
+                }
+            }
+        }
+    }
+}
+

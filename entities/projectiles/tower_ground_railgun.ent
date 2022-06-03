@@ -1,0 +1,69 @@
+EntityBlueprint
+{
+	name "projectiles/tower_ground_railgun"
+
+	RenderableDescComp
+	{
+		mesh "meshes/projectiles/alien_railgun_01.mesh"
+	}
+	
+	SkeletonDescComp
+	{
+		name "meshes/projectiles/alien_railgun_01"
+	}
+	
+	LifeTimeComp
+	{
+		time "1.0"
+	}
+	
+	AnimationComp
+	{
+		animations
+		{
+			Anim
+			{
+				animName "idle"
+				animTime "0.0"
+			}
+		}
+	}	
+	
+	SoundComp
+	{
+		sounds
+		{
+			Sound
+			{
+				name "weapon_fire/alien_railgun_tower"
+			}
+		}
+	}
+	
+	AmmoComp
+	{
+		definition "InstantAmmoDef"
+		{
+			range "50"
+			max_hits "32"
+			
+			width "6"
+			height "10"
+
+			on_enemy_hit_effect "effects/weapon_hit/alien_emp_hit_medium"
+			on_world_hit_effect "effects/weapon_hit/alien_emp_hit_medium"
+			on_block_hit_effect "effects/death/death_enemy_small_electric"
+			collision_3d 		"destructible|ground_unit|boss|chunk|chunk_builder"
+			collision_block 	"world|world_blocker"
+
+			DamagePattern
+			{
+				Damage
+				{
+					value "55"
+					type "railgun_tower"
+				}
+			}
+		}
+	}
+}

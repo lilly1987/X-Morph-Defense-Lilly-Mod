@@ -1,0 +1,680 @@
+EntityBlueprint
+{
+	name "units/alien/tower_ground_flamer"
+	TypeComp
+	{
+		type "ground_unit|tower|tower_flamer"
+	}
+
+	RenderableDescComp
+	{
+		mesh "meshes/units/alien/tower_ground_flamer.mesh"
+	}
+
+	CreepCreatorComp
+	{
+		radius "14"
+		energy_radius "1"
+		emissive_radius "14"
+		creation_time_step "0.3"
+		remove_time_step "0.3"
+	}
+
+	SkeletonDescComp
+	{
+		name "meshes/units/alien/tower_ground_flamer"
+	}
+
+	LuaDescComp
+	{
+		script "lua/units/alien/tower_basic.lua"
+	}
+
+	NodeCullerComp
+	{
+		size "1"
+		nav_mesh_cull_type "1"
+		cost_type "tower"
+	}
+
+	HealthComp
+	{
+		max_health 					"400"
+		health 						"400"
+		regeneration 				"10"
+		regeneration_cooldown 		"15"
+		damage_highlight 			"1"			
+		override_only_first_submesh "1"
+
+		DestructionLevels
+		{
+			DestructionLevel
+			{
+				health 								"100"
+				destroyed_state_material 			"units_alien/tower_ground_flamer"
+			}				
+			DestructionLevel
+			{
+				health 								"75"
+				destroy_state_change_effect_group 	"75_transition"				
+				destroy_comp_event 					"75_destroy"
+				destroyed_state_material 			"units_alien/tower_ground_flamer_dest_75"
+				destroyed_state_effect_group 		"75_state"
+			}				
+			DestructionLevel
+			{
+				health 								"50"
+				destroy_state_change_effect_group 	"50_transition"				
+				destroy_comp_event 					"50_destroy"
+				destroyed_state_material 			"units_alien/tower_ground_flamer_dest_50"
+				destroyed_state_effect_group 		"50_state"				
+			}				
+			DestructionLevel
+			{
+				health 								"25"
+				destroy_state_change_effect_group 	"25_transition"				
+				destroy_comp_event 					"25_destroy"
+				destroyed_state_material 			"units_alien/tower_ground_flamer_dest_25"
+				destroyed_state_effect_group 		"25_state"				
+			}		
+			DestructionLevel
+			{
+				health 								"0"
+				destroy_comp_delay 					"0"
+				destroy_comp_event 					"0_destroy"			
+			}			
+		}	
+
+		armor_map
+		{		
+			Pair
+			{
+				value "0.000"
+				key "wreck_explosion"
+			}
+		}			
+	}
+	
+	DestroyComp
+	{
+		spawn_collectable_parts "1"
+		DestroyPatterns
+		{
+			Pair
+			{
+				key "75_destroy"
+				value
+				{
+					explosion_type 			"centered"
+					explosion_max_power 	"12000"
+					explosion_min_power 	"4000"
+					explosion_effect 		"player/blue/effects/weapon_hit/explosion_medium_alien"
+					
+					part_material 			"units_alien/spaceship_blue_dest_75"									
+					part_prefix 			"meshes/units/alien/spaceship"
+					part_effect 			"player/blue/effects/projectiles_and_trails/fire_trail_alien_01_short"								
+				}				
+			}
+			Pair
+			{
+				key "50_destroy"
+				value
+				{
+					explosion_type 			"centered"
+					explosion_max_power 	"12000"
+					explosion_min_power 	"4000"
+					explosion_effect 		"player/blue/effects/weapon_hit/explosion_medium_alien"
+					
+					part_material 			"units_alien/spaceship_blue_dest_50"									
+					part_prefix 			"meshes/units/alien/spaceship"
+					part_effect 			"player/blue/effects/projectiles_and_trails/fire_trail_alien_01_short"								
+				}				
+			}				
+			Pair
+			{
+				key "25_destroy"
+				value
+				{
+					explosion_type 			"centered"
+					explosion_max_power 	"12000"
+					explosion_min_power 	"4000"
+					explosion_effect 		"player/blue/effects/weapon_hit/explosion_medium_alien"
+					
+					part_material 			"units_alien/spaceship_blue_dest_25"									
+					part_prefix 			"meshes/units/alien/spaceship"
+					part_effect 			"player/blue/effects/projectiles_and_trails/fire_trail_alien_01_short"					
+				}				
+			}	
+			Pair
+			{
+				key "0_destroy"
+				value
+				{
+					explosion_type 			"centered"
+					explosion_max_power 	"12000"
+					explosion_min_power 	"4000"
+					explosion_effect 		"effects/death/death_tower"
+					
+					part_material 			"units_alien/spaceship_blue_dest_25"									
+					part_prefix 			"meshes/units/alien/spaceship"
+					part_effect 			"player/blue/effects/projectiles_and_trails/fire_trail_alien_01_short"					
+				}				
+			}						
+		}	
+	}
+
+	EffectDescComp
+	{
+		Effects
+		{
+			////////////////////////Destruction level 75 transition effects/////////////////////////
+			EffectDesc
+			{
+				group "75_transition"
+				enabled "0"				
+				delay "0"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "effects/weapon_hit/explosion_medium_alien"								
+						bone "att_smoke_3"
+					}
+				}
+			}
+			EffectDesc
+			{
+				group "75_transition"
+				enabled "0"				
+				delay "0.2"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "effects/weapon_hit/explosion_medium_alien"								
+						bone "att_smoke_2"
+					}
+				}
+			}	
+			EffectDesc
+			{
+				group "75_transition"
+				enabled "0"				
+				delay "0.3"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "effects/weapon_hit/explosion_medium_alien"								
+						bone "att_smoke_3"
+					}
+				}
+			}				
+			////////////////////////Destruction level 75 state effects/////////////////////////
+			EffectDesc
+			{
+				group "75_state"
+				enabled "0"				
+				delay "0"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "player/blue/effects/projectiles_and_trails/fire_trail_spaceship_01"								
+						bone "att_smoke_1"
+					}					
+				}
+			}
+			////////////////////////Destruction level 50 transition effects/////////////////////////
+			EffectDesc
+			{
+				group "50_transition"
+				enabled "0"				
+				delay "0"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "effects/weapon_hit/explosion_medium_alien"								
+						bone "att_smoke_3"
+					}
+				}
+			}
+			EffectDesc
+			{
+				group "50_transition"
+				enabled "0"				
+				delay "0.15"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "effects/weapon_hit/explosion_medium_alien"								
+						bone "att_smoke_1"
+					}
+				}
+			}	
+			EffectDesc
+			{
+				group "50_transition"
+				enabled "0"				
+				delay "0.2"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "effects/weapon_hit/explosion_medium_alien"								
+						bone "att_smoke_3"
+					}
+				}
+			}	
+			EffectDesc
+			{
+				group "50_transition"
+				enabled "0"				
+				delay "0.3"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "effects/weapon_hit/explosion_medium_alien"								
+						bone "att_smoke_2"
+					}
+				}
+			}	
+			////////////////////////Destruction level 50 state effects/////////////////////////
+			EffectDesc
+			{
+				group "50_state"
+				enabled "0"				
+				delay "0"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "player/blue/effects/projectiles_and_trails/fire_trail_spaceship_01"								
+						bone "att_smoke_1"
+					}					
+				}
+			}
+			EffectDesc
+			{
+				group "50_state"
+				enabled "0"				
+				delay "0"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "player/blue/effects/projectiles_and_trails/fire_trail_spaceship_02"								
+						bone "att_smoke_3"
+					}					
+				}
+			}
+			////////////////////////Destruction level 25 transition effects/////////////////////////
+			EffectDesc
+			{
+				group "25_transition"
+				enabled "0"				
+				delay "0"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "effects/weapon_hit/explosion_medium_alien"								
+						bone "att_smoke_3"
+					}
+				}
+			}
+			EffectDesc
+			{
+				group "25_transition"
+				enabled "0"				
+				delay "0.15"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "effects/weapon_hit/explosion_medium_alien"								
+						bone "att_smoke_1"
+					}
+				}
+			}	
+			EffectDesc
+			{
+				group "25_transition"
+				enabled "0"				
+				delay "0.2"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "effects/weapon_hit/explosion_medium_alien"								
+						bone "att_smoke_3"
+					}
+				}
+			}	
+			EffectDesc
+			{
+				group "25_transition"
+				enabled "0"				
+				delay "0.3"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "effects/weapon_hit/explosion_medium_alien"								
+						bone "att_smoke_2"
+					}
+				}
+			}	
+			////////////////////////Destruction level 25 state effects/////////////////////////
+			EffectDesc
+			{
+				group "25_state"
+				enabled "0"				
+				delay "0"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "player/blue/effects/projectiles_and_trails/fire_trail_spaceship_01"								
+						bone "att_smoke_1"
+					}					
+				}
+			}
+			EffectDesc
+			{
+				group "25_state"
+				enabled "0"				
+				delay "0"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "player/blue/effects/projectiles_and_trails/fire_trail_spaceship_02"								
+						bone "att_smoke_3"
+					}					
+				}
+			}
+			EffectDesc
+			{
+				group "25_state"
+				enabled "0"				
+				delay "0"
+				
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "player/blue/effects/projectiles_and_trails/fire_trail_spaceship_03"								
+						bone "att_smoke_2"
+					}					
+				}
+			}	
+
+			//=========== BLUE LIGHT FOR THE NIGHT LEVELS ===========
+			EffectDesc
+			{
+				group "night"
+				enabled "0"	
+				offset "0.0 0.0 10.0"
+				orientation "0 0 0"
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "effects/vehicles/alien_tower_light_blue"
+					}
+				}
+			}		
+
+			////////////////////////MISC effects/////////////////////////		
+			EffectDesc
+			{
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "effects/vehicles/tower_flamer_idle"
+						bone "att_muzzle_1"
+					}
+				}
+			}			
+		}
+	}	
+
+	PhysicsDescComp
+	{
+		objects
+		{
+			PhysicsObjectDesc
+			{
+				group_id "ground_unit"
+				type "kinematic"
+				Shapes
+				{
+					PhysicsMeshShape
+					{
+						mesh "meshes/units/alien/tower_ground_flamer_c1.nxs"
+					}
+
+				}
+
+			}
+			PhysicsObjectDesc
+			{
+				type 		"kinematic"
+				group_id 	"nav_blocker"
+  				Shapes
+  				{
+   					PhysicsBoxShape
+   					{
+    					x "5"
+    					y "5"
+    					z "5"
+   					}
+  				}
+			}
+
+		}
+
+	}		
+
+	TurretComp
+	{
+		Turrets
+		{
+			Turret
+			{
+				name "tower_turret"
+				target "ground_unit|boss_ground_primary|boss_ground_secondary"
+				speed "120"
+				aim_volume "SphericalAimVolume"
+				{
+					range_min "0"
+					range_max "16"
+					aiming_range "28"
+				}
+
+				aiming_cooldown "2"
+				aiming_idle_angle "20"
+				aiming_target_time "0"
+				yaw "turret_1"
+				pitch "barrel_1"
+			}
+
+		}
+
+	}
+
+	WeaponComp
+	{
+		Weapons
+		{
+			Flame
+			{
+				name "main_gun"
+				weapon_controller "TurretWeaponController"
+				{
+					turret "tower_turret"
+				}
+
+				Muzzles
+				{
+					Muzzle
+					{
+						attachment "att_muzzle_1"
+					}
+
+				}
+
+				weapon_emissive_affector
+				{
+					emissive_factor "3.0"
+				}
+
+				weapon_definition "FlameWeaponDef"
+				{
+					fire_rate "1"
+					name "weapon_tower_ground_flamer"
+					FirePattern
+					{
+						burst_column_spacing "0"
+						burst_rate "0"
+						burst_rows "1"
+						burst_column_angle "0"
+						burst_columns "1"
+					}
+
+					fire_effect "effects/weapon_fire/alien_flamer_tower"
+					ammo_blueprint "projectiles/tower_ground_flamer"
+				}
+
+			}
+
+		}
+
+	}
+
+
+	TowerComp
+}
+
+EntityBlueprint
+{
+	name "units/alien/tower_ground_flamer_ghost"
+
+	TypeComp
+	{
+		type "ghost_tower"
+	}
+
+	RenderableDescComp
+	{
+		mesh "meshes/units/alien/tower_ground_flamer.mesh"
+
+		SubMeshes
+		{
+			SubMesh
+			{
+				id 			0
+				material 	"selector/hologram"
+			}
+		}
+	}
+
+	SkeletonDescComp
+	{
+		name "meshes/units/alien/tower_ground_flamer"
+	}
+
+	PhysicsDescComp
+	{
+		objects
+		{
+			PhysicsObjectDesc
+			{
+				group_id "nav_blocker"
+				type "kinematic"
+				Shapes
+				{
+					PhysicsMeshShape
+					{
+						mesh "meshes/units/alien/tower_ground_flamer_c1.nxs"
+					}
+				}
+			}
+			PhysicsObjectDesc
+			{
+				type 		"kinematic"
+				group_id 	"nav_blocker"
+  				Shapes
+  				{
+   					PhysicsBoxShape
+   					{
+    					x "5"
+    					y "5"
+    					z "5"
+   					}
+  				}
+			}
+		}
+	}
+
+	EffectDescComp
+	{
+		Effects
+		{
+			EffectDesc
+			{
+				RandomEffectVec
+				{
+					RandomEffect
+					{
+						blueprint "units/alien/tower_ground_flamer_ghost_lightning"
+					}
+				}
+			}
+		}
+	}
+}
+
+EntityBlueprint
+{
+	name "units/alien/tower_ground_flamer_ghost_lightning"
+	RenderableDescComp
+	{
+		mesh "meshes/units/alien/tower_ground_flamer_ghost.mesh"
+
+		SubMeshes
+		{
+			SubMesh
+			{
+				id "0"
+				material "units_alien/tower_ground_flamer_lightning"
+			}
+		}
+	}
+	LuaDescComp
+	{
+		script "lua/units/alien/spaceship_ghost_lightning.lua"
+	}
+}
+

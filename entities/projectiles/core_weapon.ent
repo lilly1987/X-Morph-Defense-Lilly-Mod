@@ -1,0 +1,54 @@
+EntityBlueprint
+{
+	name "projectiles/core_weapon"
+	
+	TypeComp
+	{
+		type "projectile"
+	}	
+
+
+	MovementComp
+	{
+		speed "200"
+	}
+
+	LifeTimeComp
+	{
+		time "3"
+	}
+
+#ifdef win32
+	MarkerComp
+	{
+		icon_path "marker_projectile_missile_alien"
+	}
+#endif
+
+	AmmoComp
+	{
+		definition "FlakAmmoDef"
+		{
+			on_enemy_hit_effect "effects/weapon_hit/artillery_ground_explosion"
+			on_world_hit_effect "effects/weapon_hit/artillery_ground_explosion"
+			hit_effect_direction "up"			
+			dispersion		"0"
+			
+			collision_3d "shield_all|world|world_blocker|shield|destructible|ground_unit|air_unit|water_unit|core|boss|destructor|chunk|chunk_builder"
+			DamagePattern
+			{
+				Damage
+				{
+					value "250"					
+				}
+                Area
+                {
+                    radius 			"8"
+                    type 			"explosion"
+                    splash_effect   "effects/weapon_hit/splash_damage_hit_small"
+                }				
+				
+			}
+		}
+	}
+}
